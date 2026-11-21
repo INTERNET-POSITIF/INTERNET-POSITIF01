@@ -1,0 +1,2300 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internet Positif — Mesin Pencari Sumber Terpercaya (internet-positif.com)</title>
+    <meta name="description" content="Internet Positif (https://www.internet-positif.com) adalah mesin pencari terkurasi yang memprioritaskan sumber resmi pemerintahan, edukasi, kesehatan, dan berita terverifikasi.">
+    <link rel="canonical" href="https://www.internet-positif.com/">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.internet-positif.com">
+    <meta property="og:title" content="Internet Positif — Mesin Pencari Sumber Terpercaya">
+    <meta property="og:description" content="Telusuri informasi akurat dari situs resmi pemerintah (.go.id), pendidikan, kesehatan, dan media terverifikasi Dewan Pers di https://www.internet-positif.com.">
+    <meta property="og:site_name" content="Internet Positif">
+
+    <!-- JSON-LD WebSite Schema untuk Siteliinks Search Box -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Internet Positif",
+      "alternateName": "Internet Positif Search",
+      "url": "https://www.internet-positif.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.internet-positif.com/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat Font Inter & Plus Jakarta Sans dari Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #111111;
+            background-color: #ffffff;
+            overflow-x: hidden;
+        }
+        .brand-font {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            letter-spacing: -0.03em;
+        }
+        /* Bayangan halus khas kotak pencarian Google */
+        .search-bar-shadow {
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.14);
+            border: 1px solid #dfe1e5;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .search-bar-shadow:hover,
+        .search-bar-shadow:focus-within {
+            box-shadow: 0 2px 10px rgba(32, 33, 36, 0.22);
+            border-color: rgba(223, 225, 229, 0);
+        }
+        /* Animasi gelombang suara */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+        .voice-pulse {
+            animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        /* Sembunyikan scrollbar horizontal di mobile */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-red-100 selection:text-red-900">
+
+    <!-- ==================== TOAST NOTIFICATION HALUS ==================== -->
+    <div id="toastNotification" class="fixed bottom-5 right-5 z-50 hidden items-center gap-2.5 bg-gray-900 text-white text-xs sm:text-sm font-medium px-4 py-3 rounded-2xl shadow-xl border border-gray-800 transition-all">
+        <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">✓</span>
+        <span id="toastMessage">Tautan berhasil disalin!</span>
+    </div>
+
+    <!-- ==================== MODAL INFORMASI / STATUS DOMAIN / PRATINJAU ==================== -->
+    <div id="customModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/45 backdrop-blur-xs p-4 transition-opacity">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-gray-100 transform transition-all max-h-[88vh] flex flex-col">
+            <div class="flex items-center justify-between mb-3 shrink-0">
+                <div class="flex items-center gap-2.5">
+                    <span id="modalIconBadge" class="w-8 h-8 rounded-full bg-red-50 text-red-600 flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </span>
+                    <div>
+                        <h3 id="modalTitle" class="font-bold text-base sm:text-lg text-gray-900 leading-tight">Informasi</h3>
+                        <p id="modalSubtitle" class="text-xs text-emerald-700 font-medium hidden"></p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeModal()" class="text-gray-400 hover:text-gray-700 p-1.5 rounded-xl hover:bg-gray-100 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div id="modalBody" class="text-sm text-gray-600 leading-relaxed mb-5 overflow-y-auto pr-1"></div>
+            <div id="modalFooter" class="flex flex-wrap items-center justify-end gap-2 shrink-0 pt-2 border-t border-gray-100">
+                <button type="button" onclick="closeModal()" class="px-5 py-2 bg-gray-900 hover:bg-black text-white text-sm font-medium rounded-xl transition">Mengerti</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL PENCARIAN SUARA ==================== -->
+    <div id="voiceModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-xs p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-8 text-center shadow-2xl border border-gray-100">
+            <p id="voiceStatus" class="text-gray-700 font-medium text-lg mb-6">Mendengarkan suara Anda...</p>
+            <div class="relative w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+                <div class="absolute inset-0 bg-red-500 rounded-full voice-pulse"></div>
+                <div class="relative w-16 h-16 bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15a.998.998 0 0 0-.98-.85c-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08a6.993 6.993 0 0 0 5.91-5.78c.1-.6-.39-1.14-1-1.14z"/></svg>
+                </div>
+            </div>
+            <p class="text-xs text-gray-400 mb-4">Coba ucapkan: "Cek Hoaks", "Info BMKG", atau "Kesehatan Kemenkes"</p>
+            <button type="button" onclick="cancelVoiceSearch()" class="px-4 py-2 text-sm text-gray-500 hover:text-gray-800 font-medium rounded-xl hover:bg-gray-100 transition">Batal</button>
+        </div>
+    </div>
+
+    <!-- ==================== TAMPILAN 1: HALAMAN BERANDA (ALA GOOGLE) ==================== -->
+    <div id="homeView" class="flex-1 flex flex-col justify-between min-h-screen">
+        <!-- Header Top Bar -->
+        <header class="w-full px-4 sm:px-6 py-3.5 flex items-center justify-between gap-2">
+            <!-- Badge Domain Resmi HTTPS -->
+            <button type="button" onclick="showDomainStatusModal()" class="flex items-center gap-1.5 text-xs font-medium text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded-full transition" title="Lihat Status & Sertifikat Domain Resmi">
+                <svg class="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                </svg>
+                <span class="font-semibold">https://www.internet-positif.com</span>
+            </button>
+
+            <!-- Tautan Cepat Kanan Atas -->
+            <nav class="flex items-center gap-2.5 sm:gap-4 text-xs sm:text-sm text-gray-700">
+                <button type="button" onclick="quickCategorySearch('Pemerintahan')" class="hover:underline hover:text-black transition hidden md:inline">Portal Pemerintah</button>
+                <button type="button" onclick="quickCategorySearch('Cek Fakta')" class="hover:underline hover:text-black transition hidden sm:inline">Cek Fakta</button>
+                <button type="button" onclick="showTrustedSourcesDirectory()" class="hover:underline hover:text-black transition">Statistik Sumber</button>
+
+                <!-- Tombol Menu Portal Resmi (App Launcher) -->
+                <div class="relative">
+                    <button type="button" id="appsBtn" onclick="toggleAppsMenu()" title="Direktori Portal Terpercaya" class="p-2 rounded-full hover:bg-gray-100 text-gray-600 transition focus:outline-none">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M6 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 12c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-6 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0-6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm4-8c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2zm-4 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+                        </svg>
+                    </button>
+                    <!-- Dropdown Portal Terpercaya -->
+                    <div id="appsMenu" class="hidden absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-gray-200 p-4 z-40">
+                        <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-1">Direktori Sumber Terverifikasi</p>
+                        <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                            <a href="https://www.kemkes.go.id" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl hover:bg-gray-50 flex flex-col items-center gap-1.5 transition">
+                                <span class="w-9 h-9 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center font-bold">🏥</span>
+                                <span class="font-medium text-gray-800">Kemenkes</span>
+                            </a>
+                            <a href="https://www.komdigi.go.id" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl hover:bg-gray-50 flex flex-col items-center gap-1.5 transition">
+                                <span class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">📡</span>
+                                <span class="font-medium text-gray-800">Komdigi</span>
+                            </a>
+                            <a href="https://www.bmkg.go.id" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl hover:bg-gray-50 flex flex-col items-center gap-1.5 transition">
+                                <span class="w-9 h-9 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold">🌦️</span>
+                                <span class="font-medium text-gray-800">BMKG</span>
+                            </a>
+                            <a href="https://www.antaranews.com" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl hover:bg-gray-50 flex flex-col items-center gap-1.5 transition">
+                                <span class="w-9 h-9 rounded-xl bg-red-50 text-red-600 flex items-center justify-center font-bold">📰</span>
+                                <span class="font-medium text-gray-800">Antara</span>
+                            </a>
+                            <a href="https://id.wikipedia.org" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl hover:bg-gray-50 flex flex-col items-center gap-1.5 transition">
+                                <span class="w-9 h-9 rounded-xl bg-gray-100 text-gray-800 flex items-center justify-center font-bold">📚</span>
+                                <span class="font-medium text-gray-800">Wikipedia</span>
+                            </a>
+                            <a href="https://turnbackhoax.id" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl hover:bg-gray-50 flex flex-col items-center gap-1.5 transition">
+                                <span class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">🛡️</span>
+                                <span class="font-medium text-gray-800">Anti Hoaks</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tombol Bagikan Situs -->
+                <button type="button" onclick="copyShareUrl('')" class="px-3.5 py-1.5 bg-gray-900 hover:bg-black text-white text-xs sm:text-sm font-medium rounded-full transition shadow-2xs flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                    <span>Bagikan Situs</span>
+                </button>
+            </nav>
+        </header>
+
+        <!-- Bagian Tengah Beranda -->
+        <main class="flex-1 flex flex-col items-center justify-center px-4 -mt-8 sm:-mt-12">
+            
+            <!-- LOGO INTERNET POSITIF (KOTAK MERAH + TANDA PLUS PUTIH + BAYANGAN HITAM MIRING -8.5 DERAJAT + TEKS HITAM PEKAT) -->
+            <div class="flex flex-col items-center mb-7 select-none">
+                <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+                    <svg class="w-16 h-16 sm:w-20 sm:h-20 shrink-0 drop-shadow-xs" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Internet Positif">
+                        <g transform="rotate(-8.5 60 60)">
+                            <rect x="22" y="20" width="84" height="84" rx="15" fill="#000000"/>
+                            <rect x="13" y="11" width="84" height="84" rx="15" fill="#FFFFFF"/>
+                            <rect x="11" y="9" width="83" height="83" rx="14" fill="#FF0000"/>
+                            <rect x="44" y="24" width="17" height="53" rx="1.5" fill="#FFFFFF"/>
+                            <rect x="26" y="42" width="53" height="17" rx="1.5" fill="#FFFFFF"/>
+                        </g>
+                    </svg>
+
+                    <!-- Teks Nama Merek Hitam Pekat -->
+                    <div class="text-center sm:text-left">
+                        <h1 class="brand-font text-4xl sm:text-5xl md:text-[54px] font-extrabold text-[#111111] leading-none tracking-tight">
+                            Internet Positif
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- Badge Kredibilitas -->
+                <div class="mt-3 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gray-100 border border-gray-200 text-gray-800 text-xs sm:text-sm font-medium">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>Sumber Terpercaya &amp; Terverifikasi &bull; internet-positif.com</span>
+                </div>
+            </div>
+
+            <!-- Kotak Pencarian Utama (Pill-Shaped) -->
+            <div class="w-full max-w-[584px] relative" id="homeSearchContainer">
+                <form onsubmit="handleSearchSubmit(event, 'home')" class="search-bar-shadow bg-white rounded-full flex items-center px-4 sm:px-5 h-12 sm:h-[50px] w-full">
+                    <svg class="w-5 h-5 text-gray-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+
+                    <input 
+                        type="text" 
+                        id="homeSearchInput" 
+                        autocomplete="off"
+                        placeholder="Telusuri sumber terpercaya di internet-positif.com..." 
+                        class="w-full bg-transparent text-gray-900 text-base focus:outline-none placeholder:text-gray-400"
+                        oninput="handleInputTyping('home')"
+                        onfocus="handleInputTyping('home')"
+                        onkeydown="handleAutocompleteKeydown(event, 'home')"
+                    >
+
+                    <!-- Tombol Hapus Input (X) -->
+                    <button type="button" id="homeClearBtn" onclick="clearSearchInput('home')" title="Hapus pencarian" class="hidden text-gray-400 hover:text-gray-700 p-1.5 mr-1 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+
+                    <span id="homeDivider" class="hidden h-6 w-[1px] bg-gray-200 mx-1.5"></span>
+
+                    <!-- Tombol Pencarian Suara -->
+                    <button type="button" onclick="startVoiceSearch()" title="Telusuri dengan suara" class="p-1.5 text-red-600 hover:bg-red-50 rounded-full transition shrink-0">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15a.998.998 0 0 0-.98-.85c-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08a6.993 6.993 0 0 0 5.91-5.78c.1-.6-.39-1.14-1-1.14z"/>
+                        </svg>
+                    </button>
+                </form>
+
+                <!-- Dropdown Autocomplete -->
+                <div id="homeAutocomplete" class="hidden absolute left-0 right-0 top-14 bg-white rounded-2xl shadow-xl border border-gray-200 py-2 z-30 overflow-hidden"></div>
+            </div>
+
+            <!-- Dua Tombol Aksi Utama -->
+            <div class="flex flex-wrap items-center justify-center gap-3 mt-7">
+                <button type="button" onclick="executeSearch(document.getElementById('homeSearchInput').value)" class="px-5 py-2.5 bg-[#f8f9fa] hover:bg-[#f1f3f4] text-[#202124] text-sm font-medium rounded-lg border border-transparent hover:border-gray-300 transition shadow-2xs">
+                    Penelusuran Positif
+                </button>
+                <button type="button" onclick="todaysVerifiedSourceSearch()" class="px-5 py-2.5 bg-[#f8f9fa] hover:bg-[#f1f3f4] text-[#202124] text-sm font-medium rounded-lg border border-transparent hover:border-gray-300 transition shadow-2xs">
+                    Sumber Terverifikasi Hari Ini
+                </button>
+            </div>
+
+            <!-- Chip Topik Populer Terpercaya -->
+            <div class="mt-8 max-w-xl text-center">
+                <p class="text-xs text-gray-500 mb-2.5">Topik Terverifikasi Populer:</p>
+                <div class="flex flex-wrap items-center justify-center gap-2">
+                    <button type="button" onclick="runSuggestedSearch('Kebijakan Komdigi')" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 hover:text-black rounded-full transition">
+                        Kebijakan Komdigi
+                    </button>
+                    <button type="button" onclick="runSuggestedSearch('Cek Hoaks')" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 hover:text-black rounded-full transition">
+                        Cek Hoaks
+                    </button>
+                    <button type="button" onclick="runSuggestedSearch('Prakiraan Cuaca BMKG')" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 hover:text-black rounded-full transition">
+                        Prakiraan Cuaca BMKG
+                    </button>
+                    <button type="button" onclick="runSuggestedSearch('Kesehatan Kemenkes')" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 hover:text-black rounded-full transition">
+                        Kesehatan Kemenkes
+                    </button>
+                    <button type="button" onclick="runSuggestedSearch('Beasiswa Pendidikan LPDP')" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 hover:text-black rounded-full transition">
+                        Beasiswa Pendidikan LPDP
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer Bawah -->
+        <footer class="bg-[#f2f2f2] text-sm text-[#70757a] border-t border-gray-200">
+            <div class="px-6 sm:px-8 py-3 border-b border-gray-300/70 flex flex-wrap items-center justify-between gap-2">
+                <span class="font-medium text-gray-700">Indonesia</span>
+                <button type="button" onclick="showDomainStatusModal()" class="text-xs text-emerald-700 hover:underline font-medium flex items-center gap-1">
+                    <span>🔒 Domain Resmi: https://www.internet-positif.com &bull; SafeSearch Aktif</span>
+                </button>
+            </div>
+            <div class="px-6 sm:px-8 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm">
+                <div class="flex flex-wrap items-center justify-center gap-5 sm:gap-7">
+                    <button type="button" onclick="showDomainStatusModal()" class="hover:underline">Status Domain</button>
+                    <button type="button" onclick="showInfoModal('Panduan Sumber Terpercaya', '1. Selalu periksa domain resmi pemerintah (.go.id) dan lembaga pendidikan (.ac.id).\n2. Bandingkan informasi viral dengan portal pemeriksa fakta terverifikasi IFCN (TurnBackHoax.id & CekFakta.com).\n3. Laporkan konten negatif atau penipuan daring melalui aduankonten.id.')" class="hover:underline">Panduan Sumber Terpercaya</button>
+                    <button type="button" onclick="showInfoModal('Kebijakan Anti-Hoaks', 'Internet Positif (https://www.internet-positif.com) menerapkan penyaringan ketat terhadap disinformasi, hoaks, dan situs berbahaya dengan hanya mengindeks domain resmi dan media terverifikasi Dewan Pers.')" class="hover:underline">Kebijakan Anti-Hoaks</button>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-5 sm:gap-7">
+                    <button type="button" onclick="showTrustedSourcesDirectory()" class="hover:underline font-medium text-gray-700">Statistik Indeks (52 Sumber Resmi)</button>
+                    <button type="button" onclick="copyShareUrl('')" class="hover:underline">Salin URL Situs</button>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ==================== TAMPILAN 2: HALAMAN HASIL PENCARIAN (ALA GOOGLE) ==================== -->
+    <div id="resultsView" class="hidden min-h-screen flex flex-col bg-white">
+        
+        <!-- Header Sticky Hasil Pencarian -->
+        <header class="sticky top-0 z-30 bg-white border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-3.5 pb-2.5 flex flex-col md:flex-row md:items-center gap-3.5">
+                
+                <!-- Logo Kecil + Teks Hitam "Internet Positif" -->
+                <div class="flex items-center justify-between">
+                    <button type="button" onclick="goHome()" class="flex items-center gap-2.5 group focus:outline-none text-left" title="Kembali ke Beranda https://www.internet-positif.com">
+                        <svg class="w-9 h-9 shrink-0 transition-transform group-hover:scale-105" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="rotate(-8.5 60 60)">
+                                <rect x="22" y="20" width="84" height="84" rx="15" fill="#000000"/>
+                                <rect x="13" y="11" width="84" height="84" rx="15" fill="#FFFFFF"/>
+                                <rect x="11" y="9" width="83" height="83" rx="14" fill="#FF0000"/>
+                                <rect x="44" y="24" width="17" height="53" rx="1.5" fill="#FFFFFF"/>
+                                <rect x="26" y="42" width="53" height="17" rx="1.5" fill="#FFFFFF"/>
+                            </g>
+                        </svg>
+                        <div>
+                            <span class="brand-font text-xl sm:text-2xl font-extrabold text-[#111111] tracking-tight block leading-none">
+                                Internet Positif
+                            </span>
+                            <span class="text-[10px] font-medium text-emerald-700 block mt-0.5">internet-positif.com</span>
+                        </div>
+                    </button>
+
+                    <!-- Tombol Bagikan Hasil di Mobile -->
+                    <button type="button" onclick="copyShareUrl(currentQuery)" class="md:hidden inline-flex items-center gap-1 text-[11px] font-semibold text-gray-800 bg-gray-100 hover:bg-gray-200 px-2.5 py-1.5 rounded-full">
+                        <span>Bagikan Hasil</span>
+                    </button>
+                </div>
+
+                <!-- Kolom Pencarian Header -->
+                <div class="flex-1 max-w-2xl relative" id="resultsSearchContainer">
+                    <form onsubmit="handleSearchSubmit(event, 'results')" class="search-bar-shadow bg-white rounded-full flex items-center px-4 h-11 w-full">
+                        <input 
+                            type="text" 
+                            id="resultsSearchInput" 
+                            autocomplete="off"
+                            placeholder="Cari sumber terpercaya..." 
+                            class="w-full bg-transparent text-gray-900 text-sm sm:text-base focus:outline-none"
+                            oninput="handleInputTyping('results')"
+                            onfocus="handleInputTyping('results')"
+                            onkeydown="handleAutocompleteKeydown(event, 'results')"
+                        >
+                        <button type="button" id="resultsClearBtn" onclick="clearSearchInput('results')" title="Hapus pencarian" class="text-gray-400 hover:text-gray-700 p-1 mr-1 transition">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                        <span class="h-5 w-[1px] bg-gray-200 mx-1.5"></span>
+                        <button type="button" onclick="startVoiceSearch()" class="p-1.5 text-red-600 hover:bg-red-50 rounded-full transition" title="Pencarian Suara">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15a.998.998 0 0 0-.98-.85c-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08a6.993 6.993 0 0 0 5.91-5.78c.1-.6-.39-1.14-1-1.14z"/></svg>
+                        </button>
+                        <button type="submit" class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-full transition ml-0.5" title="Cari">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </button>
+                    </form>
+                    <div id="resultsAutocomplete" class="hidden absolute left-0 right-0 top-12 bg-white rounded-2xl shadow-xl border border-gray-200 py-2 z-40 overflow-hidden"></div>
+                </div>
+
+                <!-- Aksi Kanan Desktop: Bagikan Hasil & Badge Filter Keamanan -->
+                <div class="hidden md:flex items-center gap-2 ml-auto shrink-0">
+                    <button type="button" onclick="copyShareUrl(currentQuery)" class="inline-flex items-center gap-1.5 text-xs font-medium text-gray-800 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-full transition" title="Salin tautan resmi https://www.internet-positif.com/?q=...">
+                        <svg class="w-3.5 h-3.5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                        <span>Bagikan Hasil</span>
+                    </button>
+                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-full">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <span>Filter Keamanan Aktif</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Tab Filter Kategori -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 md:pl-52 flex items-center gap-1 sm:gap-2 overflow-x-auto no-scrollbar">
+                <button type="button" onclick="setCategoryFilter('Semua')" data-tab="Semua" class="filter-tab active-tab px-3.5 py-2.5 text-sm font-medium border-b-[3px] border-red-600 text-red-600 whitespace-nowrap flex items-center gap-1.5 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    Semua
+                </button>
+                <button type="button" onclick="setCategoryFilter('Berita Resmi')" data-tab="Berita Resmi" class="filter-tab px-3.5 py-2.5 text-sm font-medium border-b-[3px] border-transparent text-gray-600 hover:text-gray-900 whitespace-nowrap transition">
+                    Berita Resmi
+                </button>
+                <button type="button" onclick="setCategoryFilter('Pemerintahan')" data-tab="Pemerintahan" class="filter-tab px-3.5 py-2.5 text-sm font-medium border-b-[3px] border-transparent text-gray-600 hover:text-gray-900 whitespace-nowrap transition">
+                    Pemerintahan
+                </button>
+                <button type="button" onclick="setCategoryFilter('Kesehatan')" data-tab="Kesehatan" class="filter-tab px-3.5 py-2.5 text-sm font-medium border-b-[3px] border-transparent text-gray-600 hover:text-gray-900 whitespace-nowrap transition">
+                    Kesehatan
+                </button>
+                <button type="button" onclick="setCategoryFilter('Edukasi & Sains')" data-tab="Edukasi & Sains" class="filter-tab px-3.5 py-2.5 text-sm font-medium border-b-[3px] border-transparent text-gray-600 hover:text-gray-900 whitespace-nowrap transition">
+                    Edukasi &amp; Sains
+                </button>
+                <button type="button" onclick="setCategoryFilter('Cek Fakta')" data-tab="Cek Fakta" class="filter-tab px-3.5 py-2.5 text-sm font-medium border-b-[3px] border-transparent text-gray-600 hover:text-gray-900 whitespace-nowrap transition">
+                    Cek Fakta
+                </button>
+            </div>
+        </header>
+
+        <!-- Konten Hasil Pencarian + Knowledge Panel -->
+        <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 md:pl-52 py-5">
+            <!-- Baris Info Tautan Resmi Aktif -->
+            <div class="mb-3 max-w-2xl flex items-center justify-between gap-2 bg-gray-50 border border-gray-200/80 rounded-xl px-3.5 py-2 text-xs">
+                <div class="flex items-center gap-1.5 truncate text-gray-600">
+                    <span class="text-emerald-600 font-bold">🔒</span>
+                    <span id="canonicalSearchUrlDisplay" class="font-mono text-[11px] sm:text-xs text-gray-800 truncate">https://www.internet-positif.com/</span>
+                </div>
+                <button type="button" onclick="copyShareUrl(currentQuery)" class="text-blue-700 hover:underline font-semibold shrink-0">Salin Tautan</button>
+            </div>
+
+            <!-- Statistik Jumlah Hasil & Kontrol Pengurutan -->
+            <div class="text-xs sm:text-sm text-gray-500 mb-5 flex flex-wrap items-center justify-between gap-2 max-w-2xl">
+                <div id="resultsStats" class="flex flex-wrap items-center gap-2"></div>
+                <div class="flex items-center gap-1.5">
+                    <label for="sortSelect" class="text-xs text-gray-500">Urutkan:</label>
+                    <select id="sortSelect" onchange="changeSortOrder(this.value)" class="text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 border border-gray-200 rounded-lg px-2.5 py-1 focus:outline-none cursor-pointer">
+                        <option value="relevansi">Paling Relevan</option>
+                        <option value="terbaru">Terbaru</option>
+                        <option value="resmi">Prioritas .go.id</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex flex-col lg:flex-row items-start gap-8 lg:gap-12">
+                <!-- Kolom Kiri: Daftar Hasil Pencarian + Kartu Lanjutkan di Google + Paginasi -->
+                <div class="w-full max-w-2xl">
+                    <div class="space-y-7" id="resultsListContainer"></div>
+
+                    <!-- Kartu "Telusuri Lebih Lanjut di Google (Khusus Situs Terpercaya)" -->
+                    <div id="googleTrustedFallbackCard" class="mt-8 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-gray-50 to-blue-50/40 border border-gray-200"></div>
+
+                    <!-- Kontrol Paginasi Halaman 1, 2, 3... -->
+                    <div id="paginationContainer" class="mt-8 pt-6 border-t border-gray-200 flex items-center justify-center gap-2"></div>
+                </div>
+
+                <!-- Kolom Kanan: Panel Pengetahuan (Knowledge Panel) -->
+                <aside id="knowledgePanel" class="w-full lg:w-[360px] shrink-0 bg-white border border-gray-200 rounded-2xl p-5 shadow-xs"></aside>
+            </div>
+        </main>
+
+        <!-- Footer Halaman Hasil -->
+        <footer class="bg-[#f2f2f2] border-t border-gray-200 mt-12 py-4 px-4 sm:px-6 md:pl-52 text-xs text-gray-600">
+            <div class="max-w-4xl flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                    <span><strong>https://www.internet-positif.com</strong> &mdash; Seluruh tautan mengarah ke domain resmi yang terverifikasi.</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button type="button" onclick="showTrustedSourcesDirectory()" class="text-gray-700 hover:underline font-medium">Daftar Sumber</button>
+                    <button type="button" onclick="goHome()" class="text-blue-700 hover:underline font-medium">Beranda</button>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ==================== SCRIPT LOGIKA MESIN PENCARI INTERNET POSITIF ==================== -->
+    <script>
+        const OFFICIAL_DOMAIN = 'https://www.internet-positif.com';
+
+        /**
+         * DATABASE SUMBER TERPERCAYA & RESMI (52+ WEBSITE TERVERIFIKASI)
+         */
+        const TRUSTED_DATABASE = [
+            // --- PEMERINTAHAN (.go.id) ---
+            {
+                id: 'komdigi-1',
+                title: 'Kementerian Komunikasi dan Digital Republik Indonesia (Komdigi)',
+                url: 'https://www.komdigi.go.id',
+                displayUrl: 'https://www.komdigi.go.id › berita › kebijakan-ruang-digital',
+                siteName: 'Komdigi RI',
+                domain: 'komdigi.go.id',
+                category: 'Pemerintahan',
+                date: '2026-11-18',
+                badgeColor: 'bg-blue-50 text-blue-700',
+                iconText: 'KD',
+                snippet: 'Portal resmi Kementerian Komunikasi dan Digital RI. Menyajikan regulasi ruang digital, literasi digital nasional, keamanan siber publik, dan tata kelola internet sehat.',
+                keywords: ['komdigi', 'kominfo', 'kebijakan', 'internet', 'positif', 'digital', 'pemerintah', 'regulasi', 'siber']
+            },
+            {
+                id: 'indonesia-go-id',
+                title: 'Indonesia.go.id - Portal Informasi & Layanan Publik Resmi Republik Indonesia',
+                url: 'https://indonesia.go.id',
+                displayUrl: 'https://indonesia.go.id › layanan-publik',
+                siteName: 'Portal Nasional RI',
+                domain: 'indonesia.go.id',
+                category: 'Pemerintahan',
+                date: '2026-11-20',
+                badgeColor: 'bg-red-50 text-red-700',
+                iconText: 'RI',
+                snippet: 'Satu pintu layanan publik terpadu Pemerintah Republik Indonesia: informasi kependudukan, paspor, perpajakan, jaminan sosial, pariwisata, dan profil resmi negara.',
+                keywords: ['layanan publik', 'pemerintah', 'indonesia', 'negara', 'profil', 'administrasi', 'publik']
+            },
+            {
+                id: 'bmkg-1',
+                title: 'BMKG - Badan Meteorologi, Klimatologi, dan Geofisika Republik Indonesia',
+                url: 'https://www.bmkg.go.id',
+                displayUrl: 'https://www.bmkg.go.id › cuaca › prakiraan-cuaca-indonesia',
+                siteName: 'BMKG RI',
+                domain: 'bmkg.go.id',
+                category: 'Pemerintahan',
+                date: '2026-11-21',
+                badgeColor: 'bg-emerald-50 text-emerald-700',
+                iconText: 'BM',
+                snippet: 'Prakiraan cuaca resmi seluruh wilayah Indonesia, peringatan dini gelombang tinggi, informasi gempa bumi terkini real-time, dan indeks kualitas udara.',
+                keywords: ['bmkg', 'cuaca', 'gempa', 'gempa bumi', 'iklim', 'hujan', 'peringatan dini', 'tsunami', 'tangerang', 'jakarta']
+            },
+            {
+                id: 'bnpb-1',
+                title: 'BNPB - Badan Nasional Penanggulangan Bencana Republik Indonesia',
+                url: 'https://www.bnpb.go.id',
+                displayUrl: 'https://www.bnpb.go.id › info-bencana › mitigasi',
+                siteName: 'BNPB RI',
+                domain: 'bnpb.go.id',
+                category: 'Pemerintahan',
+                date: '2026-11-19',
+                badgeColor: 'bg-orange-50 text-orange-700',
+                iconText: 'BN',
+                snippet: 'Pusat data dan informasi kebencanaan nasional, panduan kesiapsiagaan bencana alam, peta rawan bencana, serta laporan penanganan darurat resmi.',
+                keywords: ['bnpb', 'bencana', 'banjir', 'gempa', 'mitigasi', 'darurat', 'evakuasi', 'longsor']
+            },
+            {
+                id: 'bi-1',
+                title: 'Bank Indonesia (BI) - Bank Sentral Republik Indonesia',
+                url: 'https://www.bi.go.id',
+                displayUrl: 'https://www.bi.go.id › id › statistik › kurs',
+                siteName: 'Bank Indonesia',
+                domain: 'bi.go.id',
+                category: 'Pemerintahan',
+                date: '2026-11-21',
+                badgeColor: 'bg-sky-50 text-sky-800',
+                iconText: 'BI',
+                snippet: 'Informasi resmi kebijakan moneter, BI-Rate, kurs referensi JISDOR, sistem pembayaran QRIS, BI-FAST, statistik ekonomi, dan stabilitas sistem keuangan.',
+                keywords: ['bank indonesia', 'bi', 'kurs', 'rupiah', 'ekonomi', 'qris', 'inflasi', 'suku bunga', 'keuangan']
+            },
+            {
+                id: 'ojk-1',
+                title: 'Otoritas Jasa Keuangan (OJK) - Pengawas Sektor Keuangan & Perlindungan Konsumen',
+                url: 'https://www.ojk.go.id',
+                displayUrl: 'https://www.ojk.go.id › id › kanal › edukasi-dan-perlindungan-konsumen',
+                siteName: 'OJK RI',
+                domain: 'ojk.go.id',
+                category: 'Pemerintahan',
+                date: '2026-11-17',
+                badgeColor: 'bg-red-50 text-red-800',
+                iconText: 'OJK',
+                snippet: 'Daftar resmi lembaga keuangan berizin, pengecekan legalitas pinjaman daring (fintech), investasi legal, serta layanan pengaduan konsumen sektor keuangan.',
+                keywords: ['ojk', 'keuangan', 'pinjol', 'investasi', 'bank', 'asuransi', 'legal', 'penipuan', 'ekonomi']
+            },
+            {
+                id: 'bpjs-1',
+                title: 'BPJS Kesehatan - Badan Penyelenggara Jaminan Sosial Kesehatan',
+                url: 'https://www.bpjs-kesehatan.go.id',
+                displayUrl: 'https://www.bpjs-kesehatan.go.id › layanan › jkn-kis',
+                siteName: 'BPJS Kesehatan',
+                domain: 'bpjs-kesehatan.go.id',
+                category: 'Pemerintahan',
+                date: '2026-11-16',
+                badgeColor: 'bg-emerald-50 text-emerald-800',
+                iconText: 'BPJS',
+                snippet: 'Portal resmi Program Jaminan Kesehatan Nasional (JKN-KIS). Informasi kepesertaan, iuran, aplikasi Mobile JKN, skrining riwayat kesehatan, dan faskes mitra.',
+                keywords: ['bpjs', 'bpjs kesehatan', 'jkn', 'kis', 'asuransi', 'rumah sakit', 'faskes', 'iuran']
+            },
+            {
+                id: 'kemenkeu-1',
+                title: 'Kementerian Keuangan Republik Indonesia - APBN & Kebijakan Fiskal',
+                url: 'https://www.kemenkeu.go.id',
+                displayUrl: 'https://www.kemenkeu.go.id › informasi-publik › apbn',
+                siteName: 'Kemenkeu RI',
+                domain: 'kemenkeu.go.id',
+                category: 'Pemerintahan',
+                date: '2026-11-15',
+                badgeColor: 'bg-amber-50 text-amber-800',
+                iconText: 'MK',
+                snippet: 'Transparansi Anggaran Pendapatan dan Belanja Negara (APBN), kebijakan fiskal, pajak, bea cukai, surat berharga negara (SBN), dan ekonomi makro.',
+                keywords: ['kemenkeu', 'keuangan', 'apbn', 'pajak', 'ekonomi', 'sbn', 'anggaran', 'negara']
+            },
+            {
+                id: 'pajak-1',
+                title: 'Direktorat Jenderal Pajak (DJP) - Layanan Perpajakan & Coretax',
+                url: 'https://www.pajak.go.id',
+                displayUrl: 'https://www.pajak.go.id › layanan › spt-tahunan',
+                siteName: 'DJP Kemenkeu',
+                domain: 'pajak.go.id',
+                category: 'Pemerintahan',
+                date: '2026-11-14',
+                badgeColor: 'bg-blue-50 text-blue-800',
+                iconText: 'DJP',
+                snippet: 'Layanan resmi administrasi perpajakan Indonesia, pelaporan SPT Tahunan, pembuatan kode billing, pemadanan NIK-NPWP, dan edukasi peraturan pajak.',
+                keywords: ['pajak', 'npwp', 'spt', 'djp', 'coretax', 'nik', 'layanan publik']
+            },
+            {
+                id: 'imigrasi-1',
+                title: 'Direktorat Jenderal Imigrasi - Layanan Paspor & Visa Republik Indonesia',
+                url: 'https://www.imigrasi.go.id',
+                displayUrl: 'https://www.imigrasi.go.id › layanan-wni › paspor-elektronik',
+                siteName: 'Ditjen Imigrasi RI',
+                domain: 'imigrasi.go.id',
+                category: 'Pemerintahan',
+                date: '2026-11-12',
+                badgeColor: 'bg-indigo-50 text-indigo-800',
+                iconText: 'IM',
+                snippet: 'Informasi pembuatan paspor baru dan penggantian melalui M-Paspor, e-Visa Indonesia, golden visa, dan aturan keimigrasian resmi.',
+                keywords: ['imigrasi', 'paspor', 'visa', 'm-paspor', 'luar negeri', 'perjalanan', 'layanan publik']
+            },
+            {
+                id: 'dukcapil-1',
+                title: 'Ditjen Dukcapil Kemendagri - Administrasi Kependudukan & IKD',
+                url: 'https://dukcapil.kemendagri.go.id',
+                displayUrl: 'https://dukcapil.kemendagri.go.id › layanan › identitas-kependudukan-digital',
+                siteName: 'Dukcapil Kemendagri',
+                domain: 'dukcapil.kemendagri.go.id',
+                category: 'Pemerintahan',
+                date: '2026-11-10',
+                badgeColor: 'bg-slate-100 text-slate-800',
+                iconText: 'DK',
+                snippet: 'Panduan resmi layanan Kartu Tanda Penduduk elektronik (e-KTP), Identitas Kependudukan Digital (IKD), Kartu Keluarga (KK), dan Akta Kelahiran.',
+                keywords: ['dukcapil', 'ktp', 'e-ktp', 'kk', 'kartu keluarga', 'akta', 'ikd', 'nik', 'kependudukan']
+            },
+            {
+                id: 'kpu-1',
+                title: 'Komisi Pemilihan Umum Republik Indonesia (KPU RI) - Info Pemilu',
+                url: 'https://www.kpu.go.id',
+                displayUrl: 'https://www.kpu.go.id › halaman › cek-dpt-online',
+                siteName: 'KPU RI',
+                domain: 'kpu.go.id',
+                category: 'Pemerintahan',
+                date: '2026-11-09',
+                badgeColor: 'bg-red-50 text-red-700',
+                iconText: 'KPU',
+                snippet: 'Portal resmi Komisi Pemilihan Umum RI: pengecekan Daftar Pemilih Tetap (DPT), tahapan pemilu dan pilkada, serta regulasi kepemiluan nasional.',
+                keywords: ['kpu', 'pemilu', 'pilkada', 'dpt', 'pemilih', 'suara', 'pemerintah']
+            },
+            {
+                id: 'bkn-1',
+                title: 'Badan Kepegawaian Negara (BKN RI) - Portal SSCASN & Informasi ASN',
+                url: 'https://www.bkn.go.id',
+                displayUrl: 'https://www.bkn.go.id › layanan › sscasn-cpns-pppk',
+                siteName: 'BKN RI',
+                domain: 'bkn.go.id',
+                category: 'Pemerintahan',
+                date: '2026-11-11',
+                badgeColor: 'bg-sky-50 text-sky-800',
+                iconText: 'BKN',
+                snippet: 'Informasi resmi seleksi Calon Aparatur Sipil Negara (CPNS & PPPK), manajemen kepegawaian nasional, dan layanan digital ASN.',
+                keywords: ['bkn', 'cpns', 'pppk', 'asn', 'sscasn', 'lowongan', 'pemerintah']
+            },
+
+            // --- MEDIA TERVERIFIKASI DEWAN PERS ---
+            {
+                id: 'antara-1',
+                title: 'ANTARA News - Kantor Berita Nasional Indonesia Terverifikasi',
+                url: 'https://www.antaranews.com',
+                displayUrl: 'https://www.antaranews.com › nasional › terkini',
+                siteName: 'ANTARA News',
+                domain: 'antaranews.com',
+                category: 'Berita Resmi',
+                date: '2026-11-21',
+                badgeColor: 'bg-red-50 text-red-700',
+                iconText: 'AN',
+                snippet: 'Berita nasional, ekonomi, hukum, olahraga, dan internasional yang akurat dan terverifikasi langsung dari Kantor Berita Negara Republik Indonesia (LKBN ANTARA).',
+                keywords: ['berita', 'antara', 'nasional', 'ekonomi', 'hari ini', 'terkini', 'indonesia']
+            },
+            {
+                id: 'kompas-1',
+                title: 'Kompas.com - Berita Terpercaya & Jurnalisme Terverifikasi Dewan Pers',
+                url: 'https://www.kompas.com',
+                displayUrl: 'https://www.kompas.com › cek-fakta › edukasi',
+                siteName: 'Kompas.com',
+                domain: 'kompas.com',
+                category: 'Berita Resmi',
+                date: '2026-11-21',
+                badgeColor: 'bg-orange-50 text-orange-700',
+                iconText: 'KM',
+                snippet: 'Liputan berita mendalam, kanal Cek Fakta, sains, dan edukasi dari redaksi jurnalisme profesional yang terverifikasi administrasi dan faktual oleh Dewan Pers.',
+                keywords: ['berita', 'kompas', 'cek fakta', 'edukasi', 'sains', 'nasional', 'terkini']
+            },
+            {
+                id: 'tempo-1',
+                title: 'Tempo.co - Jurnalisme Investigasi, Fakta & Berita Nasional Terpercaya',
+                url: 'https://www.tempo.co',
+                displayUrl: 'https://www.tempo.co › nasional › cek-fakta',
+                siteName: 'Tempo.co',
+                domain: 'tempo.co',
+                category: 'Berita Resmi',
+                date: '2026-11-21',
+                badgeColor: 'bg-red-50 text-red-800',
+                iconText: 'TM',
+                snippet: 'Portal berita nasional dengan liputan mendalam, analisis kebijakan publik, dan kanal pemeriksa fakta independen anggota International Fact-Checking Network.',
+                keywords: ['tempo', 'berita', 'investigasi', 'nasional', 'politik', 'ekonomi', 'cek fakta']
+            },
+            {
+                id: 'detik-1',
+                title: 'detikcom - Informasi Berita Terkini dan Terbaru Hari Ini',
+                url: 'https://www.detik.com',
+                displayUrl: 'https://www.detik.com › news › terkini',
+                siteName: 'detikcom',
+                domain: 'detik.com',
+                category: 'Berita Resmi',
+                date: '2026-11-21',
+                badgeColor: 'bg-indigo-50 text-indigo-800',
+                iconText: 'DT',
+                snippet: 'Sajian berita terkini dari seluruh penjuru Indonesia meliputi berita nasional, daerah, teknologi (detikINET), kesehatan (detikHealth), dan keuangan.',
+                keywords: ['detik', 'detikcom', 'berita', 'hari ini', 'terbaru', 'teknologi', 'nasional']
+            },
+            {
+                id: 'cnn-1',
+                title: 'CNN Indonesia - Berita Terbaru, Terkini Indonesia dan Dunia',
+                url: 'https://www.cnnindonesia.com',
+                displayUrl: 'https://www.cnnindonesia.com › nasional › internasional',
+                siteName: 'CNN Indonesia',
+                domain: 'cnnindonesia.com',
+                category: 'Berita Resmi',
+                date: '2026-11-21',
+                badgeColor: 'bg-red-50 text-red-700',
+                iconText: 'CNN',
+                snippet: 'Liputan berita nasional, perkembangan geopolitik internasional, ekonomi global, teknologi, dan gaya hidup yang terverifikasi Dewan Pers.',
+                keywords: ['cnn', 'berita', 'internasional', 'dunia', 'nasional', 'ekonomi', 'teknologi']
+            },
+            {
+                id: 'liputan6-1',
+                title: 'Liputan6.com - Berita Hari Ini, Kabar Harian Terkini & Cek Fakta',
+                url: 'https://www.liputan6.com',
+                displayUrl: 'https://www.liputan6.com › cek-fakta',
+                siteName: 'Liputan6.com',
+                domain: 'liputan6.com',
+                category: 'Berita Resmi',
+                date: '2026-11-20',
+                badgeColor: 'bg-orange-50 text-orange-700',
+                iconText: 'L6',
+                snippet: 'Portal berita nasional dan kanal Cek Fakta terverifikasi IFCN yang menyajikan verifikasi kabar viral dan berita harian secara aktual.',
+                keywords: ['liputan6', 'berita', 'cek fakta', 'viral', 'hari ini', 'nasional']
+            },
+            {
+                id: 'republika-1',
+                title: 'Republika Online - Berita Nasional, Ekonomi Syariah & Dunia Islam',
+                url: 'https://www.republika.co.id',
+                displayUrl: 'https://www.republika.co.id › khazanah › ekonomi',
+                siteName: 'Republika.co.id',
+                domain: 'republika.co.id',
+                category: 'Berita Resmi',
+                date: '2026-11-20',
+                badgeColor: 'bg-emerald-50 text-emerald-800',
+                iconText: 'RP',
+                snippet: 'Media nasional terverifikasi Dewan Pers yang menyajikan berita terkini, edukasi, ekonomi syariah, dan khazanah peradaban.',
+                keywords: ['republika', 'berita', 'islam', 'ekonomi syariah', 'nasional', 'edukasi']
+            },
+            {
+                id: 'cnbc-1',
+                title: 'CNBC Indonesia - Berita Ekonomi, Bisnis, Saham & Pasar Modal',
+                url: 'https://www.cnbcindonesia.com',
+                displayUrl: 'https://www.cnbcindonesia.com › market › investment',
+                siteName: 'CNBC Indonesia',
+                domain: 'cnbcindonesia.com',
+                category: 'Berita Resmi',
+                date: '2026-11-21',
+                badgeColor: 'bg-blue-50 text-blue-800',
+                iconText: 'CNBC',
+                snippet: 'Portal berita ekonomi dan bisnis terintegrasi: pergerakan IHSG, analisis saham, komoditas, perbankan, dan kebijakan ekonomi global.',
+                keywords: ['cnbc', 'ekonomi', 'bisnis', 'saham', 'ihsg', 'investasi', 'pasar modal', 'keuangan']
+            },
+            {
+                id: 'tirto-1',
+                title: 'Tirto.id - Jurnalisme Data, Riset Mendalam & Periksa Fakta',
+                url: 'https://tirto.id',
+                displayUrl: 'https://tirto.id › indepth › periksa-fakta',
+                siteName: 'Tirto.id',
+                domain: 'tirto.id',
+                category: 'Berita Resmi',
+                date: '2026-11-19',
+                badgeColor: 'bg-sky-50 text-sky-800',
+                iconText: 'TR',
+                snippet: 'Media jurnalisme presisi berbasis data, infografik riset, sejarah, dan verifikasi fakta yang terverifikasi Dewan Pers dan IFCN.',
+                keywords: ['tirto', 'data', 'riset', 'sejarah', 'cek fakta', 'artikel', 'berita']
+            },
+            {
+                id: 'katadata-1',
+                title: 'Katadata.co.id - Berita Ekonomi, Data Statistik & Riset Bisnis',
+                url: 'https://katadata.co.id',
+                displayUrl: 'https://katadata.co.id › databoks › statistik',
+                siteName: 'Katadata & Databoks',
+                domain: 'katadata.co.id',
+                category: 'Berita Resmi',
+                date: '2026-11-20',
+                badgeColor: 'bg-teal-50 text-teal-800',
+                iconText: 'KD',
+                snippet: 'Portal berita ekonomi dan bank data statistik Indonesia (Databoks) yang menyajikan visualisasi data terpercaya dari sumber resmi.',
+                keywords: ['katadata', 'databoks', 'statistik', 'data', 'ekonomi', 'riset', 'survei']
+            },
+            {
+                id: 'bisnis-1',
+                title: 'Bisnis.com - Berita Bisnis, Keuangan, Perbankan & Industri',
+                url: 'https://www.bisnis.com',
+                displayUrl: 'https://www.bisnis.com › finansial › ekonomi',
+                siteName: 'Bisnis Indonesia',
+                domain: 'bisnis.com',
+                category: 'Berita Resmi',
+                date: '2026-11-20',
+                badgeColor: 'bg-amber-50 text-amber-800',
+                iconText: 'BS',
+                snippet: 'Rujukan informasi bisnis, finansial, industri, dan pasar modal Indonesia dari Harian Bisnis Indonesia yang terverifikasi Dewan Pers.',
+                keywords: ['bisnis', 'finansial', 'ekonomi', 'perbankan', 'industri', 'berita']
+            },
+            {
+                id: 'mediaindonesia-1',
+                title: 'Media Indonesia - Berita Terkini, Editorial & Analisis Kebijakan',
+                url: 'https://mediaindonesia.com',
+                displayUrl: 'https://mediaindonesia.com › politik-dan-hukum',
+                siteName: 'Media Indonesia',
+                domain: 'mediaindonesia.com',
+                category: 'Berita Resmi',
+                date: '2026-11-19',
+                badgeColor: 'bg-blue-50 text-blue-800',
+                iconText: 'MI',
+                snippet: 'Surat kabar nasional dan portal berita terverifikasi Dewan Pers dengan fokus pada kebijakan publik, hukum, pendidikan, dan kebudayaan.',
+                keywords: ['media indonesia', 'berita', 'hukum', 'politik', 'editorial', 'nasional']
+            },
+
+            // --- KESEHATAN TERPERCAYA ---
+            {
+                id: 'kemkes-1',
+                title: 'Kementerian Kesehatan RI - Informasi Kesehatan & Layanan Publik Resmi',
+                url: 'https://www.kemkes.go.id',
+                displayUrl: 'https://www.kemkes.go.id › id › layanan-kesehatan',
+                siteName: 'Kemenkes RI',
+                domain: 'kemkes.go.id',
+                category: 'Kesehatan',
+                date: '2026-11-21',
+                badgeColor: 'bg-teal-50 text-teal-700',
+                iconText: 'KK',
+                snippet: 'Situs resmi Kementerian Kesehatan Republik Indonesia. Panduan pencegahan penyakit, imunisasi, SATUSEHAT, gizi seimbang, dan informasi rumah sakit.',
+                keywords: ['kesehatan', 'kemenkes', 'dokter', 'rumah sakit', 'obat', 'penyakit', 'gizi', 'vaksin', 'satusehat']
+            },
+            {
+                id: 'ayosehat-1',
+                title: 'Ayo Sehat Kemenkes RI - Panduan Gaya Hidup Sehat & Edukasi Medis',
+                url: 'https://ayosehat.kemkes.go.id',
+                displayUrl: 'https://ayosehat.kemkes.go.id › topik-penyakit › gaya-hidup',
+                siteName: 'Ayo Sehat Kemenkes',
+                domain: 'ayosehat.kemkes.go.id',
+                category: 'Kesehatan',
+                date: '2026-11-19',
+                badgeColor: 'bg-emerald-50 text-emerald-700',
+                iconText: 'AS',
+                snippet: 'Portal edukasi kesehatan masyarakat resmi Kemenkes: informasi kesehatan mental, pencegahan diabetes, hipertensi, stunting, dan pola makan sehat.',
+                keywords: ['kesehatan mental', 'gaya hidup sehat', 'diabetes', 'hipertensi', 'stunting', 'gizi', 'olahraga']
+            },
+            {
+                id: 'who-1',
+                title: 'World Health Organization (WHO) - Panduan Kesehatan Global Resmi',
+                url: 'https://www.who.int',
+                displayUrl: 'https://www.who.int › health-topics',
+                siteName: 'World Health Organization',
+                domain: 'who.int',
+                category: 'Kesehatan',
+                date: '2026-11-20',
+                badgeColor: 'bg-sky-50 text-sky-700',
+                iconText: 'WHO',
+                snippet: 'Organisasi Kesehatan Dunia (PBB) menyediakan pedoman medis berbasis bukti ilmiah, standar kesehatan internasional, dan laporan kesehatan global terkini.',
+                keywords: ['who', 'kesehatan', 'medis', 'dunia', 'penyakit', 'penelitian', 'gizi', 'vaksin', 'mental']
+            },
+            {
+                id: 'bpom-1',
+                title: 'Badan Pengawas Obat dan Makanan (BPOM RI) - Cek Produk Terdaftar',
+                url: 'https://www.pom.go.id',
+                displayUrl: 'https://cekbpom.pom.go.id › verifikasi-produk',
+                siteName: 'BPOM RI',
+                domain: 'pom.go.id',
+                category: 'Kesehatan',
+                date: '2026-11-18',
+                badgeColor: 'bg-blue-50 text-blue-800',
+                iconText: 'BPOM',
+                snippet: 'Layanan resmi pengecekan izin edar obat, makanan, minuman, suplemen kesehatan, dan kosmetik yang aman dikonsumsi di Indonesia.',
+                keywords: ['bpom', 'obat', 'makanan', 'kosmetik', 'izin edar', 'keamanan pangan', 'suplemen']
+            },
+            {
+                id: 'alodokter-1',
+                title: 'Alodokter - Informasi Kesehatan & Artikel Medis Ditinjau Dokter',
+                url: 'https://www.alodokter.com',
+                displayUrl: 'https://www.alodokter.com › penyakit-a-z › obat-a-z',
+                siteName: 'Alodokter',
+                domain: 'alodokter.com',
+                category: 'Kesehatan',
+                date: '2026-11-20',
+                badgeColor: 'bg-sky-50 text-sky-700',
+                iconText: 'AL',
+                snippet: 'Direktori lengkap gejala penyakit, panduan obat, dan artikel kesehatan keluarga yang ditulis dan ditinjau langsung oleh tim dokter terverifikasi.',
+                keywords: ['alodokter', 'gejala', 'penyakit', 'obat', 'dokter', 'kesehatan', 'konsultasi']
+            },
+            {
+                id: 'halodoc-1',
+                title: 'Halodoc - Artikel Medis Terpercaya & Direktori Kesehatan',
+                url: 'https://www.halodoc.com',
+                displayUrl: 'https://www.halodoc.com › artikel › kesehatan',
+                siteName: 'Halodoc',
+                domain: 'halodoc.com',
+                category: 'Kesehatan',
+                date: '2026-11-19',
+                badgeColor: 'bg-rose-50 text-rose-700',
+                iconText: 'HD',
+                snippet: 'Sumber informasi medis berbasis referensi klinis, panduan vitamin, kesehatan anak, serta artikel pencegahan penyakit yang ditinjau tenaga medis.',
+                keywords: ['halodoc', 'kesehatan', 'medis', 'vitamin', 'dokter', 'kesehatan mental', 'anak']
+            },
+            {
+                id: 'klikdokter-1',
+                title: 'KlikDokter - Edukasi Kesehatan & Informasi Obat Terverifikasi',
+                url: 'https://www.klikdokter.com',
+                displayUrl: 'https://www.klikdokter.com › info-sehat › obat',
+                siteName: 'KlikDokter',
+                domain: 'klikdokter.com',
+                category: 'Kesehatan',
+                date: '2026-11-17',
+                badgeColor: 'bg-emerald-50 text-emerald-700',
+                iconText: 'KD',
+                snippet: 'Portal informasi kesehatan, kalkulator indeks massa tubuh (BMI), direktori obat, dan artikel medis yang disusun bersama dokter spesialis.',
+                keywords: ['klikdokter', 'bmi', 'obat', 'kesehatan', 'dokter', 'gizi', 'diet']
+            },
+            {
+                id: 'idai-1',
+                title: 'Ikatan Dokter Anak Indonesia (IDAI) - Panduan Kesehatan & Imunisasi Anak',
+                url: 'https://www.idai.or.id',
+                displayUrl: 'https://www.idai.or.id › artikel › klinik › imunisasi',
+                siteName: 'IDAI Resmi',
+                domain: 'idai.or.id',
+                category: 'Kesehatan',
+                date: '2026-11-16',
+                badgeColor: 'bg-indigo-50 text-indigo-700',
+                iconText: 'IDAI',
+                snippet: 'Organisasi profesi dokter spesialis anak Indonesia: jadwal imunisasi anak resmi, panduan MPASI, tumbuh kembang balita, dan kesehatan remaja.',
+                keywords: ['idai', 'anak', 'imunisasi', 'mpasi', 'balita', 'vaksin', 'tumbuh kembang', 'dokter anak']
+            },
+
+            // --- EDUKASI & SAINS ---
+            {
+                id: 'kemdikbud-1',
+                title: 'Kementerian Pendidikan Dasar dan Menengah & Dikti - Portal Resmi',
+                url: 'https://www.kemdikbud.go.id',
+                displayUrl: 'https://www.kemdikbud.go.id › pendidikan › beasiswa',
+                siteName: 'Kemendikbudristek',
+                domain: 'kemdikbud.go.id',
+                category: 'Edukasi & Sains',
+                date: '2026-11-18',
+                badgeColor: 'bg-indigo-50 text-indigo-700',
+                iconText: 'PD',
+                snippet: 'Informasi resmi kurikulum pendidikan nasional, program Beasiswa Pendidikan Indonesia (BPI), KIP Kuliah, Rumah Belajar, dan akreditasi institusi.',
+                keywords: ['pendidikan', 'beasiswa', 'sekolah', 'kuliah', 'kurikulum', 'kemdikbud', 'edukasi', 'siswa', 'mahasiswa']
+            },
+            {
+                id: 'lpdp-1',
+                title: 'LPDP Kemenkeu - Lembaga Pengelola Dana Pendidikan & Beasiswa Resmi',
+                url: 'https://lpdp.kemenkeu.go.id',
+                displayUrl: 'https://lpdp.kemenkeu.go.id › beasiswa › kebijakan-umum',
+                siteName: 'LPDP Kemenkeu RI',
+                domain: 'lpdp.kemenkeu.go.id',
+                category: 'Edukasi & Sains',
+                date: '2026-11-15',
+                badgeColor: 'bg-amber-50 text-amber-800',
+                iconText: 'LP',
+                snippet: 'Pendaftaran resmi beasiswa magister dan doktor dalam maupun luar negeri yang dikelola oleh Kementerian Keuangan Republik Indonesia.',
+                keywords: ['beasiswa', 'lpdp', 'pendidikan', 'kuliah', 's2', 's3', 'kemenkeu', 'edukasi']
+            },
+            {
+                id: 'wikipedia-1',
+                title: 'Wikipedia Bahasa Indonesia - Ensiklopedia Bebas Berbasis Referensi',
+                url: 'https://id.wikipedia.org',
+                displayUrl: 'https://id.wikipedia.org › wiki › Halaman_Utama',
+                siteName: 'Wikipedia Indonesia',
+                domain: 'id.wikipedia.org',
+                category: 'Edukasi & Sains',
+                date: '2026-11-21',
+                badgeColor: 'bg-gray-100 text-gray-800',
+                iconText: 'W',
+                snippet: 'Ensiklopedia daring multibahasa dengan jutaan artikel pengetahuan umum, sejarah dunia, sains, biografi tokoh, geografi, dan referensi ilmiah.',
+                keywords: ['wikipedia', 'ensiklopedia', 'sejarah', 'pengetahuan', 'pengertian', 'definisi', 'edukasi', 'sains']
+            },
+            {
+                id: 'brin-1',
+                title: 'BRIN - Badan Riset dan Inovasi Nasional Republik Indonesia',
+                url: 'https://www.brin.go.id',
+                displayUrl: 'https://www.brin.go.id › riset-dan-inovasi',
+                siteName: 'BRIN RI',
+                domain: 'brin.go.id',
+                category: 'Edukasi & Sains',
+                date: '2026-11-17',
+                badgeColor: 'bg-rose-50 text-rose-700',
+                iconText: 'BR',
+                snippet: 'Portal resmi penelitian ilmiah, publikasi jurnal nasional, inovasi teknologi, antariksa, dan pengembangan ilmu pengetahuan di Indonesia.',
+                keywords: ['riset', 'penelitian', 'brin', 'lipi', 'teknologi', 'sains', 'inovasi', 'ilmiah', 'jurnal']
+            },
+            {
+                id: 'nasa-1',
+                title: 'NASA - National Aeronautics and Space Administration (Sains Antariksa)',
+                url: 'https://www.nasa.gov',
+                displayUrl: 'https://www.nasa.gov › science › universe',
+                siteName: 'NASA Official',
+                domain: 'nasa.gov',
+                category: 'Edukasi & Sains',
+                date: '2026-11-20',
+                badgeColor: 'bg-blue-50 text-blue-900',
+                iconText: 'NASA',
+                snippet: 'Sumber ilmiah resmi eksplorasi luar angkasa, astronomi, teleskop James Webb, perubahan iklim bumi, dan misi sains internasional.',
+                keywords: ['nasa', 'antariksa', 'luar angkasa', 'astronomi', 'planet', 'bumi', 'sains', 'teleskop']
+            },
+            {
+                id: 'unicef-1',
+                title: 'UNICEF Indonesia - Perlindungan Anak, Pendidikan & Gizi',
+                url: 'https://www.unicef.org/indonesia/id',
+                displayUrl: 'https://www.unicef.org › indonesia › id › pendidikan-dan-anak',
+                siteName: 'UNICEF Indonesia',
+                domain: 'unicef.org',
+                category: 'Edukasi & Sains',
+                date: '2026-11-14',
+                badgeColor: 'bg-sky-50 text-sky-700',
+                iconText: 'UN',
+                snippet: 'Laporan riset dan panduan resmi PBB untuk pemenuhan hak anak, imunisasi dasar, pendidikan inklusif, dan perlindungan anak di ruang digital.',
+                keywords: ['unicef', 'anak', 'pendidikan', 'gizi', 'pbb', 'perlindungan anak', 'imunisasi']
+            },
+            {
+                id: 'perpusnas-1',
+                title: 'Perpustakaan Nasional Republik Indonesia (Perpusnas) - iPusnas',
+                url: 'https://www.perpusnas.go.id',
+                displayUrl: 'https://www.perpusnas.go.id › e-resources › ipusnas',
+                siteName: 'Perpusnas RI',
+                domain: 'perpusnas.go.id',
+                category: 'Edukasi & Sains',
+                date: '2026-11-13',
+                badgeColor: 'bg-indigo-50 text-indigo-800',
+                iconText: 'PN',
+                snippet: 'Akses gratis jutaan koleksi buku digital (iPusnas), jurnal ilmiah internasional (e-Resources), naskah kuno Nusantara, dan katalog induk nasional.',
+                keywords: ['perpustakaan', 'perpusnas', 'buku', 'ebook', 'jurnal', 'literasi', 'membaca', 'ipusnas']
+            },
+            {
+                id: 'mdn-1',
+                title: 'MDN Web Docs (Mozilla) - Dokumentasi Resmi Web & Pemrograman',
+                url: 'https://developer.mozilla.org',
+                displayUrl: 'https://developer.mozilla.org › docs › Web',
+                siteName: 'MDN Web Docs',
+                domain: 'developer.mozilla.org',
+                category: 'Edukasi & Sains',
+                date: '2026-11-20',
+                badgeColor: 'bg-gray-100 text-gray-900',
+                iconText: 'MDN',
+                snippet: 'Standar referensi teknis paling terpercaya bagi pengembang web untuk HTML, CSS, JavaScript, Web API, dan keamanan aplikasi web.',
+                keywords: ['mdn', 'html', 'css', 'javascript', 'coding', 'pemrograman', 'web', 'developer', 'teknologi']
+            },
+            {
+                id: 'dicoding-1',
+                title: 'Dicoding Indonesia - Akademi Pemrograman & Kecerdasan Buatan (AI)',
+                url: 'https://www.dicoding.com',
+                displayUrl: 'https://www.dicoding.com › learningpaths › artificial-intelligence',
+                siteName: 'Dicoding Indonesia',
+                domain: 'dicoding.com',
+                category: 'Edukasi & Sains',
+                date: '2026-11-18',
+                badgeColor: 'bg-slate-100 text-slate-800',
+                iconText: 'DC',
+                snippet: 'Kurikulum pembelajaran pemrograman, cloud computing, machine learning, dan kecerdasan buatan (AI) berstandar industri global di Indonesia.',
+                keywords: ['dicoding', 'ai', 'kecerdasan buatan', 'coding', 'pemrograman', 'cloud', 'teknologi', 'belajar']
+            },
+            {
+                id: 'w3-1',
+                title: 'World Wide Web Consortium (W3C) - Standar Internasional Web Terbuka',
+                url: 'https://www.w3.org',
+                displayUrl: 'https://www.w3.org › standards › webdesign',
+                siteName: 'W3C Standards',
+                domain: 'w3.org',
+                category: 'Edukasi & Sains',
+                date: '2026-11-15',
+                badgeColor: 'bg-blue-50 text-blue-800',
+                iconText: 'W3C',
+                snippet: 'Organisasi standar internasional untuk World Wide Web: aksesibilitas web (WCAG), standar HTML/CSS, privasi, dan keamanan web global.',
+                keywords: ['w3c', 'web', 'standar', 'aksesibilitas', 'html', 'teknologi', 'internet']
+            },
+            {
+                id: 'ui-1',
+                title: 'Universitas Indonesia (UI) - Portal Akademik, Riset & Penerimaan',
+                url: 'https://www.ui.ac.id',
+                displayUrl: 'https://www.ui.ac.id › akademik › penerimaan',
+                siteName: 'Universitas Indonesia',
+                domain: 'ui.ac.id',
+                category: 'Edukasi & Sains',
+                date: '2026-11-17',
+                badgeColor: 'bg-amber-50 text-amber-800',
+                iconText: 'UI',
+                snippet: 'Situs resmi Universitas Indonesia (.ac.id): informasi penerimaan mahasiswa baru (SIMAK UI), fakultas, jurnal penelitian, dan pengabdian masyarakat.',
+                keywords: ['ui', 'universitas indonesia', 'kuliah', 'simak ui', 'kampus', 'pendidikan', 'mahasiswa']
+            },
+            {
+                id: 'itb-1',
+                title: 'Institut Teknologi Bandung (ITB) - Sains, Teknik & Inovasi',
+                url: 'https://www.itb.ac.id',
+                displayUrl: 'https://www.itb.ac.id › pendidikan › penelitian',
+                siteName: 'Institut Teknologi Bandung',
+                domain: 'itb.ac.id',
+                category: 'Edukasi & Sains',
+                date: '2026-11-16',
+                badgeColor: 'bg-blue-50 text-blue-900',
+                iconText: 'ITB',
+                snippet: 'Portal resmi Institut Teknologi Bandung (.ac.id): informasi program studi sains, teknik, seni rupa, seleksi masuk perguruan tinggi, dan riset teknologi.',
+                keywords: ['itb', 'institut teknologi bandung', 'teknik', 'sains', 'kuliah', 'kampus', 'pendidikan']
+            },
+            {
+                id: 'ugm-1',
+                title: 'Universitas Gadjah Mada (UGM) - Pendidikan Tinggi & Riset Nusantara',
+                url: 'https://ugm.ac.id',
+                displayUrl: 'https://ugm.ac.id › id › pendidikan',
+                siteName: 'Universitas Gadjah Mada',
+                domain: 'ugm.ac.id',
+                category: 'Edukasi & Sains',
+                date: '2026-11-15',
+                badgeColor: 'bg-sky-50 text-sky-900',
+                iconText: 'UGM',
+                snippet: 'Situs resmi Universitas Gadjah Mada Yogyakarta (.ac.id): informasi akademik, seleksi masuk UGM, publikasi ilmiah, dan inovasi penelitian.',
+                keywords: ['ugm', 'gadjah mada', 'yogyakarta', 'kuliah', 'kampus', 'pendidikan', 'riset']
+            },
+
+            // --- CEK FAKTA & LITERASI DIGITAL ---
+            {
+                id: 'turnbackhoax-1',
+                title: 'TurnBackHoax.ID - Klarifikasi Fakta & Cek Hoaks oleh MAFINDO',
+                url: 'https://turnbackhoax.id',
+                displayUrl: 'https://turnbackhoax.id › periksa-fakta',
+                siteName: 'TurnBackHoax (MAFINDO)',
+                domain: 'turnbackhoax.id',
+                category: 'Cek Fakta',
+                date: '2026-11-21',
+                badgeColor: 'bg-amber-50 text-amber-700',
+                iconText: 'TB',
+                snippet: 'Basis data pemeriksa fakta (fact-checking) independen terverifikasi International Fact-Checking Network (IFCN) untuk menangkal berita palsu dan disinformasi.',
+                keywords: ['cek hoaks', 'hoaks', 'fakta', 'klarifikasi', 'disinformasi', 'mafindo', 'berita palsu']
+            },
+            {
+                id: 'cekfakta-1',
+                title: 'CekFakta.com - Kolaborasi Periksa Fakta Media Indonesia',
+                url: 'https://cekfakta.com',
+                displayUrl: 'https://cekfakta.com › verifikasi-klaim',
+                siteName: 'CekFakta.com',
+                domain: 'cekfakta.com',
+                category: 'Cek Fakta',
+                date: '2026-11-20',
+                badgeColor: 'bg-emerald-50 text-emerald-700',
+                iconText: 'CF',
+                snippet: 'Platform kolaborasi pemeriksa fakta dari puluhan redaksi media terpercaya di Indonesia untuk memverifikasi klaim viral dan informasi publik.',
+                keywords: ['cek fakta', 'cekfakta', 'klaim', 'verifikasi', 'hoaks', 'fakta']
+            },
+            {
+                id: 'aduankonten-1',
+                title: 'Aduan Konten - Layanan Pelaporan Konten Negatif & Hoaks Resmi Komdigi',
+                url: 'https://aduankonten.id',
+                displayUrl: 'https://aduankonten.id › lapor',
+                siteName: 'Aduan Konten Komdigi',
+                domain: 'aduankonten.id',
+                category: 'Cek Fakta',
+                date: '2026-11-18',
+                badgeColor: 'bg-red-50 text-red-700',
+                iconText: 'AK',
+                snippet: 'Kanal resmi masyarakat untuk melaporkan konten bermuatan negatif, penipuan daring, hoaks, dan pelanggaran regulasi ruang digital di Indonesia.',
+                keywords: ['hoaks', 'hoax', 'aduan', 'konten', 'lapor', 'blokir', 'internet positif', 'penipuan']
+            },
+            {
+                id: 'siberkreasi-1',
+                title: 'Siberkreasi - Gerakan Nasional Literasi Digital Indonesia',
+                url: 'https://siberkreasi.id',
+                displayUrl: 'https://siberkreasi.id › modul-literasi-digital',
+                siteName: 'Siberkreasi Komdigi',
+                domain: 'siberkreasi.id',
+                category: 'Cek Fakta',
+                date: '2026-11-15',
+                badgeColor: 'bg-blue-50 text-blue-700',
+                iconText: 'SK',
+                snippet: 'Modul edukasi, webinar, dan panduan kecakapan digital, keamanan digital, etika bermedia sosial, dan budaya digital bagi masyarakat Indonesia.',
+                keywords: ['literasi digital', 'siberkreasi', 'keamanan digital', 'etika', 'internet sehat', 'edukasi']
+            },
+            {
+                id: 'mafindo-1',
+                title: 'MAFINDO - Masyarakat Anti Fitnah Indonesia',
+                url: 'https://www.mafindo.or.id',
+                displayUrl: 'https://www.mafindo.or.id › edukasi-anti-hoaks',
+                siteName: 'MAFINDO (.or.id)',
+                domain: 'mafindo.or.id',
+                category: 'Cek Fakta',
+                date: '2026-11-14',
+                badgeColor: 'bg-amber-50 text-amber-800',
+                iconText: 'MF',
+                snippet: 'Organisasi nirlaba independen yang berfokus pada edukasi literasi media, pelatihan periksa fakta, dan penanganan misinformasi di Indonesia.',
+                keywords: ['mafindo', 'anti fitnah', 'hoaks', 'literasi', 'cek fakta', 'edukasi']
+            },
+            {
+                id: 'bssn-1',
+                title: 'BSSN - Badan Siber dan Sandi Negara Republik Indonesia',
+                url: 'https://www.bssn.go.id',
+                displayUrl: 'https://www.bssn.go.id › imbauan-keamanan-siber',
+                siteName: 'BSSN RI',
+                domain: 'bssn.go.id',
+                category: 'Cek Fakta',
+                date: '2026-11-19',
+                badgeColor: 'bg-slate-100 text-slate-900',
+                iconText: 'BSSN',
+                snippet: 'Peringatan dini keamanan siber nasional, panduan perlindungan data pribadi, pencegahan phishing/malware, dan ketahanan siber Indonesia.',
+                keywords: ['bssn', 'keamanan siber', 'siber', 'phishing', 'data pribadi', 'password', 'malware', 'penipuan']
+            }
+        ];
+
+        // Database Knowledge Panel terstruktur untuk topik-topik populer
+        const KNOWLEDGE_TOPICS = [
+            {
+                triggers: ['bmkg', 'cuaca', 'gempa', 'gempa bumi', 'iklim'],
+                title: 'BMKG Republik Indonesia',
+                subtitle: 'Lembaga Pemerintah Nonkementerian',
+                description: 'Badan Meteorologi, Klimatologi, dan Geofisika (BMKG) bertugas melaksanakan tugas pemerintahan di bidang meteorologi, klimatologi, kualitas udara, dan geofisika di seluruh Indonesia.',
+                facts: [
+                    { label: 'Situs Resmi', value: 'bmkg.go.id' },
+                    { label: 'Call Center', value: '196' },
+                    { label: 'Layanan Utama', value: 'Prakiraan Cuaca, Info Gempa & Peringatan Dini Tsunami' }
+                ],
+                officialUrl: 'https://www.bmkg.go.id'
+            },
+            {
+                triggers: ['bpjs', 'bpjs kesehatan', 'jkn', 'kis'],
+                title: 'BPJS Kesehatan (JKN-KIS)',
+                subtitle: 'Badan Hukum Publik Indonesia',
+                description: 'Badan Penyelenggara Jaminan Sosial Kesehatan menyelenggarakan program jaminan pemeliharaan kesehatan bagi seluruh rakyat Indonesia.',
+                facts: [
+                    { label: 'Situs Resmi', value: 'bpjs-kesehatan.go.id' },
+                    { label: 'Care Center', value: '165' },
+                    { label: 'Aplikasi Resmi', value: 'Mobile JKN' }
+                ],
+                officialUrl: 'https://www.bpjs-kesehatan.go.id'
+            },
+            {
+                triggers: ['hoaks', 'cek hoaks', 'cek fakta', 'disinformasi', 'penipuan'],
+                title: 'Pusat Verifikasi & Anti-Hoaks',
+                subtitle: 'Panduan Keamanan Informasi Digital',
+                description: 'Sebelum membagikan informasi viral, pastikan kebenarannya melalui portal pemeriksa fakta terverifikasi IFCN dan kanal aduan resmi pemerintah.',
+                facts: [
+                    { label: 'Aduan Resmi', value: 'aduankonten.id (Komdigi)' },
+                    { label: 'Periksa Fakta', value: 'turnbackhoax.id & cekfakta.com' },
+                    { label: 'Prinsip Utama', value: 'Saring Sebelum Sharing' }
+                ],
+                officialUrl: 'https://turnbackhoax.id'
+            },
+            {
+                triggers: ['ai', 'kecerdasan buatan', 'artificial intelligence', 'teknologi', 'coding'],
+                title: 'Kecerdasan Buatan (Artificial Intelligence)',
+                subtitle: 'Ilmu Komputer & Teknologi Digital',
+                description: 'Kecerdasan buatan adalah bidang ilmu komputer yang berfokus pada pengembangan sistem yang mampu melakukan tugas yang biasanya memerlukan kecerdasan manusia, seperti pemrosesan bahasa alami dan analisis data.',
+                facts: [
+                    { label: 'Riset Nasional', value: 'BRIN (brin.go.id)' },
+                    { label: 'Edukasi', value: 'Dicoding & MDN Web Docs' },
+                    { label: 'Etika Digital', value: 'Strategi Nasional Kecerdasan Artifisial Indonesia' }
+                ],
+                officialUrl: 'https://id.wikipedia.org/wiki/Kecerdasan_buatan'
+            },
+            {
+                triggers: ['kesehatan', 'kemenkes', 'kesehatan mental', 'gizi', 'obat'],
+                title: 'Kementerian Kesehatan RI',
+                subtitle: 'Portal Kesehatan Resmi Indonesia',
+                description: 'Sumber rujukan utama kebijakan kesehatan nasional, pencegahan penyakit, informasi obat terdaftar BPOM, dan layanan kesehatan masyarakat.',
+                facts: [
+                    { label: 'Situs Resmi', value: 'kemkes.go.id & ayosehat.kemkes.go.id' },
+                    { label: 'Halo Kemenkes', value: '1500-567' },
+                    { label: 'Layanan Darurat', value: '119 (PSC)' }
+                ],
+                officialUrl: 'https://www.kemkes.go.id'
+            }
+        ];
+
+        // Saran pencarian cepat untuk autocomplete
+        const SUGGESTED_QUERIES = [
+            'Kebijakan Komdigi',
+            'Cek Hoaks & Periksa Fakta',
+            'Prakiraan Cuaca BMKG',
+            'Layanan Publik Indonesia.go.id',
+            'Kesehatan Kemenkes & BPJS',
+            'Beasiswa Pendidikan LPDP',
+            'Berita Nasional Terkini ANTARA',
+            'Kecerdasan Buatan (AI) & Teknologi',
+            'Cek Produk Aman BPOM',
+            'Keamanan Siber BSSN'
+        ];
+
+        // State aplikasi
+        let currentQuery = '';
+        let currentCategory = 'Semua';
+        let currentSort = 'relevansi';
+        let currentPage = 1;
+        const RESULTS_PER_PAGE = 8;
+        let cachedSearchResults = [];
+        let activeAutocompleteIndex = -1;
+        let toastTimer = null;
+
+        /**
+         * Menampilkan Toast Notification Halus
+         */
+        function showToast(message) {
+            const toast = document.getElementById('toastNotification');
+            const msgEl = document.getElementById('toastMessage');
+            msgEl.textContent = message;
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 3000);
+        }
+
+        /**
+         * Membangun URL Resmi https://www.internet-positif.com/?q=...
+         */
+        function buildOfficialShareUrl(query) {
+            const trimmed = (query || '').trim();
+            if (!trimmed) return `${OFFICIAL_DOMAIN}/`;
+            return `${OFFICIAL_DOMAIN}/?q=${encodeURIComponent(trimmed)}`;
+        }
+
+        /**
+         * Menyalin Tautan Resmi ke Clipboard dengan Fallback Aman
+         */
+        function copyShareUrl(query) {
+            const shareUrl = buildOfficialShareUrl(query);
+            try {
+                const tempInput = document.createElement('input');
+                tempInput.value = shareUrl;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                tempInput.setSelectionRange(0, 99999);
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                showToast(`Tautan disalin: ${shareUrl}`);
+            } catch (err) {
+                showToast(`Tautan resmi: ${shareUrl}`);
+            }
+        }
+
+        /**
+         * Sinkronisasi Query Parameter URL (?q=...) secara aman dengan History API
+         */
+        function syncBrowserUrlState(query) {
+            try {
+                const url = new URL(window.location.href);
+                if (query && query.trim()) {
+                    url.searchParams.set('q', query.trim());
+                } else {
+                    url.searchParams.delete('q');
+                }
+                window.history.replaceState({ q: query }, '', url.toString());
+            } catch (e) {
+                // Abaikan jika dijalankan di lingkungan sandboxed iframe tertentu
+            }
+
+            const canonicalDisplay = document.getElementById('canonicalSearchUrlDisplay');
+            if (canonicalDisplay) {
+                canonicalDisplay.textContent = buildOfficialShareUrl(query);
+            }
+        }
+
+        /**
+         * Menampilkan Modal Status & Sertifikat Domain Resmi https://www.internet-positif.com
+         */
+        function showDomainStatusModal() {
+            const currentShareUrl = buildOfficialShareUrl(currentQuery);
+            document.getElementById('modalTitle').textContent = 'Status Domain Resmi';
+            const sub = document.getElementById('modalSubtitle');
+            sub.textContent = '🔒 HTTPS Terverifikasi • SafeSearch Aktif';
+            sub.classList.remove('hidden');
+
+            document.getElementById('modalBody').innerHTML = `
+                <div class="space-y-3.5 text-xs sm:text-sm">
+                    <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950">
+                        <p class="text-xs text-emerald-700 font-semibold uppercase tracking-wider mb-1">Alamat Domain Utama</p>
+                        <p class="font-mono font-bold text-sm sm:text-base break-all">${OFFICIAL_DOMAIN}/</p>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed">
+                        <strong>Internet Positif</strong> adalah mesin pencari terkurasi yang menyaring disinformasi, hoaks, dan konten berbahaya. Setiap pencarian memprioritaskan domain resmi instansi pemerintah (<code>.go.id</code>), institusi pendidikan (<code>.ac.id</code>), dan media terverifikasi Dewan Pers.
+                    </p>
+                    <div class="p-3 rounded-xl bg-gray-50 border border-gray-200">
+                        <p class="text-xs text-gray-500 mb-1">Tautan Halaman Saat Ini:</p>
+                        <p class="font-mono text-xs text-gray-800 break-all">${escapeHtml(currentShareUrl)}</p>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('modalFooter').innerHTML = `
+                <button type="button" onclick="copyShareUrl(currentQuery); closeModal();" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-medium rounded-xl transition">Salin Tautan</button>
+                <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-900 hover:bg-black text-white text-xs sm:text-sm font-medium rounded-xl transition">Tutup</button>
+            `;
+
+            const modal = document.getElementById('customModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        /**
+         * Menampilkan Modal Daftar Lengkap Website Terpercaya yang Diindeks
+         */
+        function showTrustedSourcesDirectory() {
+            document.getElementById('modalTitle').textContent = `Direktori Sumber Terpercaya (${TRUSTED_DATABASE.length} Portal)`;
+            const sub = document.getElementById('modalSubtitle');
+            sub.textContent = 'Terindeks di https://www.internet-positif.com';
+            sub.classList.remove('hidden');
+
+            const grouped = {};
+            TRUSTED_DATABASE.forEach(item => {
+                if (!grouped[item.category]) grouped[item.category] = [];
+                grouped[item.category].push(item);
+            });
+
+            let html = `<p class="text-xs text-gray-500 mb-3">Seluruh situs di bawah ini telah melalui kurasi kredibilitas domain resmi dan verifikasi faktual:</p><div class="space-y-4">`;
+            Object.keys(grouped).forEach(cat => {
+                html += `
+                    <div>
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-gray-800 mb-2 pb-1 border-b border-gray-100">${cat} (${grouped[cat].length})</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            ${grouped[cat].map(site => `
+                                <a href="${site.url}" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl border border-gray-200 hover:border-emerald-400 hover:bg-emerald-50/40 transition flex items-center justify-between gap-2">
+                                    <div class="min-w-0">
+                                        <p class="text-xs font-semibold text-gray-900 truncate">${site.siteName}</p>
+                                        <p class="text-[11px] text-gray-500 truncate">${site.domain}</p>
+                                    </div>
+                                    <span class="text-emerald-600 text-xs font-bold shrink-0">✓</span>
+                                </a>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+
+            document.getElementById('modalBody').innerHTML = html;
+            document.getElementById('modalFooter').innerHTML = `
+                <button type="button" onclick="closeModal()" class="px-5 py-2 bg-gray-900 hover:bg-black text-white text-xs sm:text-sm font-medium rounded-xl transition">Tutup Direktori</button>
+            `;
+
+            const modal = document.getElementById('customModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        /**
+         * Menampilkan Modal Pratinjau Sumber Aman sebelum mengunjungi situs tujuan
+         */
+        function openSafePreviewModal(itemId) {
+            const item = cachedSearchResults.find(r => r.id === itemId) || TRUSTED_DATABASE.find(r => r.id === itemId);
+            if (!item) return;
+
+            document.getElementById('modalTitle').textContent = item.siteName;
+            const sub = document.getElementById('modalSubtitle');
+            sub.textContent = `✓ Sumber Terverifikasi • ${item.domain}`;
+            sub.classList.remove('hidden');
+
+            document.getElementById('modalBody').innerHTML = `
+                <div class="space-y-3">
+                    <h4 class="font-bold text-gray-900 text-base leading-snug">${item.title}</h4>
+                    <div class="px-3 py-2 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 font-mono break-all">
+                        ${item.url}
+                    </div>
+                    <p class="text-sm text-gray-700 leading-relaxed">${item.snippet}</p>
+                    <div class="flex flex-wrap items-center gap-2 pt-1 text-xs text-gray-500">
+                        <span class="px-2.5 py-1 rounded-lg bg-gray-100 font-medium text-gray-700">Kategori: ${item.category}</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-emerald-50 font-medium text-emerald-700">Status: Domain Aman &amp; Resmi</span>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('modalFooter').innerHTML = `
+                <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs sm:text-sm font-medium rounded-xl transition">Batal</button>
+                <a href="${item.url}" target="_blank" rel="noopener noreferrer" onclick="closeModal()" class="px-5 py-2 bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-semibold rounded-xl inline-flex items-center gap-1.5 transition">
+                    <span>Kunjungi Situs Asli</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            `;
+
+            const modal = document.getElementById('customModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        /**
+         * Menampilkan Modal Informasi Umum
+         */
+        function showInfoModal(title, message) {
+            document.getElementById('modalTitle').textContent = title;
+            const sub = document.getElementById('modalSubtitle');
+            sub.textContent = OFFICIAL_DOMAIN;
+            sub.classList.remove('hidden');
+
+            document.getElementById('modalBody').innerText = message;
+            document.getElementById('modalFooter').innerHTML = `
+                <button type="button" onclick="closeModal()" class="px-5 py-2 bg-gray-900 hover:bg-black text-white text-sm font-medium rounded-xl transition">Mengerti</button>
+            `;
+            const modal = document.getElementById('customModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('customModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        /**
+         * Toggle Dropdown Menu Direktori Portal Resmi
+         */
+        function toggleAppsMenu() {
+            const menu = document.getElementById('appsMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Menutup dropdown saat klik di luar area
+        document.addEventListener('click', function(e) {
+            const appsBtn = document.getElementById('appsBtn');
+            const appsMenu = document.getElementById('appsMenu');
+            if (appsBtn && appsMenu && !appsBtn.contains(e.target) && !appsMenu.contains(e.target)) {
+                appsMenu.classList.add('hidden');
+            }
+
+            const homeContainer = document.getElementById('homeSearchContainer');
+            const homeAuto = document.getElementById('homeAutocomplete');
+            if (homeContainer && homeAuto && !homeContainer.contains(e.target)) {
+                homeAuto.classList.add('hidden');
+                activeAutocompleteIndex = -1;
+            }
+
+            const resultsContainer = document.getElementById('resultsSearchContainer');
+            const resultsAuto = document.getElementById('resultsAutocomplete');
+            if (resultsContainer && resultsAuto && !resultsContainer.contains(e.target)) {
+                resultsAuto.classList.add('hidden');
+                activeAutocompleteIndex = -1;
+            }
+        });
+
+        /**
+         * Menangani pengetikan pada kotak pencarian
+         */
+        function handleInputTyping(source) {
+            const input = document.getElementById(source === 'home' ? 'homeSearchInput' : 'resultsSearchInput');
+            const clearBtn = document.getElementById(source === 'home' ? 'homeClearBtn' : 'resultsClearBtn');
+            const val = input.value;
+            activeAutocompleteIndex = -1;
+
+            if (source === 'home') {
+                const divider = document.getElementById('homeDivider');
+                if (val.trim().length > 0) {
+                    clearBtn.classList.remove('hidden');
+                    divider.classList.remove('hidden');
+                } else {
+                    clearBtn.classList.add('hidden');
+                    divider.classList.add('hidden');
+                }
+            } else {
+                if (val.trim().length > 0) {
+                    clearBtn.classList.remove('invisible');
+                } else {
+                    clearBtn.classList.add('invisible');
+                }
+            }
+            renderAutocomplete(val, source);
+        }
+
+        /**
+         * Navigasi Keyboard pada Dropdown Autocomplete (ArrowUp, ArrowDown, Escape)
+         */
+        function handleAutocompleteKeydown(event, source) {
+            const box = document.getElementById(source === 'home' ? 'homeAutocomplete' : 'resultsAutocomplete');
+            if (box.classList.contains('hidden')) return;
+
+            const items = box.querySelectorAll('button[data-suggestion]');
+            if (items.length === 0) return;
+
+            if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                activeAutocompleteIndex = (activeAutocompleteIndex + 1) % items.length;
+                highlightAutocompleteItem(items, source);
+            } else if (event.key === 'ArrowUp') {
+                event.preventDefault();
+                activeAutocompleteIndex = (activeAutocompleteIndex - 1 + items.length) % items.length;
+                highlightAutocompleteItem(items, source);
+            } else if (event.key === 'Escape') {
+                box.classList.add('hidden');
+                activeAutocompleteIndex = -1;
+            }
+        }
+
+        function highlightAutocompleteItem(items, source) {
+            const input = document.getElementById(source === 'home' ? 'homeSearchInput' : 'resultsSearchInput');
+            items.forEach((btn, idx) => {
+                if (idx === activeAutocompleteIndex) {
+                    btn.classList.add('bg-gray-100');
+                    input.value = btn.dataset.suggestion;
+                } else {
+                    btn.classList.remove('bg-gray-100');
+                }
+            });
+        }
+
+        /**
+         * Merender daftar saran pencarian otomatis
+         */
+        function renderAutocomplete(query, source) {
+            const box = document.getElementById(source === 'home' ? 'homeAutocomplete' : 'resultsAutocomplete');
+            const trimmed = query.trim().toLowerCase();
+
+            const dynamicTitles = TRUSTED_DATABASE.map(d => d.siteName);
+            const allSuggestions = [...new Set([...SUGGESTED_QUERIES, ...dynamicTitles])];
+
+            const matches = allSuggestions.filter(item =>
+                item.toLowerCase().includes(trimmed)
+            ).slice(0, 6);
+
+            if (matches.length === 0) {
+                box.classList.add('hidden');
+                return;
+            }
+
+            box.innerHTML = matches.map(item => `
+                <button type="button" data-suggestion="${escapeHtml(item)}" onclick="runSuggestedSearch('${item.replace(/'/g, "\\'")}')" class="w-full px-4 py-2.5 text-left text-sm text-gray-800 hover:bg-gray-100 flex items-center justify-between transition">
+                    <span class="flex items-center gap-3 truncate">
+                        <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <span class="truncate">${escapeHtml(item)}</span>
+                    </span>
+                    <span class="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-medium shrink-0 ml-2">Terverifikasi</span>
+                </button>
+            `).join('');
+
+            box.classList.remove('hidden');
+        }
+
+        /**
+         * Menghapus isi input pencarian
+         */
+        function clearSearchInput(source) {
+            const homeInput = document.getElementById('homeSearchInput');
+            const resultsInput = document.getElementById('resultsSearchInput');
+
+            if (source === 'home') {
+                homeInput.value = '';
+                homeInput.focus();
+                document.getElementById('homeClearBtn').classList.add('hidden');
+                document.getElementById('homeDivider').classList.add('hidden');
+                document.getElementById('homeAutocomplete').classList.add('hidden');
+            } else {
+                resultsInput.value = '';
+                resultsInput.focus();
+                document.getElementById('resultsClearBtn').classList.add('invisible');
+                document.getElementById('resultsAutocomplete').classList.add('hidden');
+            }
+        }
+
+        /**
+         * Pencarian Suara Real-Time (Web Speech API) dengan Fallback Simulasi Interaktif
+         */
+        let voiceTimeout = null;
+        let activeRecognition = null;
+
+        function startVoiceSearch() {
+            showToast('Pencarian suara diaktifkan...');
+            const modal = document.getElementById('voiceModal');
+            const status = document.getElementById('voiceStatus');
+            status.textContent = 'Mendengarkan suara Anda...';
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            if (SpeechRecognition) {
+                try {
+                    const recognition = new SpeechRecognition();
+                    activeRecognition = recognition;
+                    recognition.lang = 'id-ID';
+                    recognition.interimResults = false;
+                    recognition.maxAlternatives = 1;
+
+                    recognition.onresult = (event) => {
+                        const transcript = event.results[0][0].transcript;
+                        status.textContent = `"${transcript}"`;
+                        setTimeout(() => {
+                            cancelVoiceSearch();
+                            runSuggestedSearch(transcript);
+                        }, 600);
+                    };
+
+                    recognition.onerror = () => {
+                        runFallbackVoiceSimulation(status);
+                    };
+
+                    recognition.start();
+                    return;
+                } catch (err) {
+                    runFallbackVoiceSimulation(status);
+                    return;
+                }
+            }
+
+            runFallbackVoiceSimulation(status);
+        }
+
+        function runFallbackVoiceSimulation(statusEl) {
+            const samplePhrases = [
+                'Prakiraan Cuaca BMKG',
+                'Kesehatan Kemenkes & BPJS',
+                'Cek Hoaks & Periksa Fakta',
+                'Beasiswa Pendidikan LPDP',
+                'Berita Nasional Terkini ANTARA'
+            ];
+            const chosen = samplePhrases[Math.floor(Math.random() * samplePhrases.length)];
+
+            voiceTimeout = setTimeout(() => {
+                statusEl.textContent = `"${chosen}"`;
+                setTimeout(() => {
+                    cancelVoiceSearch();
+                    runSuggestedSearch(chosen);
+                }, 650);
+            }, 1400);
+        }
+
+        function cancelVoiceSearch() {
+            clearTimeout(voiceTimeout);
+            if (activeRecognition) {
+                try { activeRecognition.stop(); } catch (e) {}
+                activeRecognition = null;
+            }
+            const modal = document.getElementById('voiceModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        /**
+         * Menangani Submit Form Pencarian
+         */
+        function handleSearchSubmit(event, source) {
+            if (event) event.preventDefault();
+            const input = document.getElementById(source === 'home' ? 'homeSearchInput' : 'resultsSearchInput');
+            document.getElementById('homeAutocomplete').classList.add('hidden');
+            document.getElementById('resultsAutocomplete').classList.add('hidden');
+            executeSearch(input.value);
+        }
+
+        function runSuggestedSearch(queryText) {
+            document.getElementById('homeAutocomplete').classList.add('hidden');
+            document.getElementById('resultsAutocomplete').classList.add('hidden');
+            currentCategory = 'Semua';
+            currentPage = 1;
+            executeSearch(queryText);
+        }
+
+        function quickCategorySearch(categoryName) {
+            currentCategory = categoryName;
+            currentPage = 1;
+            executeSearch(categoryName);
+        }
+
+        function todaysVerifiedSourceSearch() {
+            const randomItem = TRUSTED_DATABASE[Math.floor(Math.random() * TRUSTED_DATABASE.length)];
+            currentCategory = 'Semua';
+            currentPage = 1;
+            executeSearch(randomItem.siteName);
+        }
+
+        /**
+         * Kembali ke Tampilan Beranda
+         */
+        function goHome() {
+            currentQuery = '';
+            syncBrowserUrlState('');
+            document.getElementById('resultsView').classList.add('hidden');
+            document.getElementById('homeView').classList.remove('hidden');
+            document.getElementById('homeSearchInput').value = '';
+            document.getElementById('homeClearBtn').classList.add('hidden');
+            document.getElementById('homeDivider').classList.add('hidden');
+            document.getElementById('homeAutocomplete').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setCategoryFilter(category) {
+            currentCategory = category;
+            currentPage = 1;
+            updateTabUI();
+            renderSearchResults(currentQuery, currentCategory);
+        }
+
+        function changeSortOrder(sortValue) {
+            currentSort = sortValue;
+            currentPage = 1;
+            renderSearchResults(currentQuery, currentCategory);
+        }
+
+        function goToPage(pageNumber) {
+            currentPage = pageNumber;
+            renderPaginatedPage();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateTabUI() {
+            const tabs = document.querySelectorAll('.filter-tab');
+            tabs.forEach(tab => {
+                if (tab.dataset.tab === currentCategory) {
+                    tab.classList.remove('border-transparent', 'text-gray-600');
+                    tab.classList.add('border-red-600', 'text-red-600');
+                } else {
+                    tab.classList.add('border-transparent', 'text-gray-600');
+                    tab.classList.remove('border-red-600', 'text-red-600');
+                }
+            });
+        }
+
+        /**
+         * FUNGSI UTAMA EKSEKUSI PENCARIAN
+         */
+        async function executeSearch(rawQuery) {
+            const query = (rawQuery || '').trim() || 'Sumber Terpercaya Indonesia';
+            currentQuery = query;
+            currentPage = 1;
+
+            syncBrowserUrlState(query);
+
+            const homeInput = document.getElementById('homeSearchInput');
+            const resultsInput = document.getElementById('resultsSearchInput');
+            homeInput.value = query;
+            resultsInput.value = query;
+
+            document.getElementById('homeClearBtn').classList.remove('hidden');
+            document.getElementById('homeDivider').classList.remove('hidden');
+            document.getElementById('resultsClearBtn').classList.remove('invisible');
+
+            document.getElementById('homeAutocomplete').classList.add('hidden');
+            document.getElementById('resultsAutocomplete').classList.add('hidden');
+
+            document.getElementById('homeView').classList.add('hidden');
+            document.getElementById('resultsView').classList.remove('hidden');
+
+            updateTabUI();
+            await renderSearchResults(query, currentCategory);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /**
+         * FETCH REAL-TIME KE WIKIPEDIA BAHASA INDONESIA API
+         */
+        async function fetchLiveWikipediaResults(query) {
+            try {
+                const endpoint = `https://id.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&srlimit=5&utf8=&format=json&origin=*`;
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 3500);
+
+                const response = await fetch(endpoint, { signal: controller.signal });
+                clearTimeout(timeoutId);
+
+                if (!response.ok) return [];
+                const data = await response.json();
+                const searchItems = (data && data.query && data.query.search) ? data.query.search : [];
+
+                return searchItems.map((item, idx) => {
+                    const cleanSnippet = item.snippet.replace(/<[^>]*>?/gm, '');
+                    const pageSlug = encodeURIComponent(item.title.replace(/\s+/g, '_'));
+                    return {
+                        id: `wiki-live-${item.pageid}-${idx}`,
+                        title: `${item.title} - Wikipedia Bahasa Indonesia`,
+                        url: `https://id.wikipedia.org/wiki/${pageSlug}`,
+                        displayUrl: `https://id.wikipedia.org › wiki › ${item.title.replace(/\s+/g, '_')}`,
+                        siteName: 'Wikipedia Indonesia (Real-Time)',
+                        domain: 'id.wikipedia.org',
+                        category: 'Edukasi & Sains',
+                        date: item.timestamp ? item.timestamp.slice(0, 10) : '2026-11-20',
+                        badgeColor: 'bg-gray-100 text-gray-800',
+                        iconText: 'W',
+                        score: 75 - idx * 3,
+                        snippet: cleanSnippet ? `${cleanSnippet}... (Artikel ensiklopedia terverifikasi referensi Wikipedia).` : `Artikel ensiklopedia lengkap mengenai ${item.title} di Wikipedia Bahasa Indonesia.`
+                    };
+                });
+            } catch (error) {
+                return [];
+            }
+        }
+
+        /**
+         * LOGIKA FILTERING PINTAR, SCORING RELEVANSI & MULTI-WEBSITE RESULTS
+         */
+        async function renderSearchResults(query, category) {
+            const startTime = performance.now();
+            const qLower = query.toLowerCase();
+            const words = qLower.split(/\s+/).filter(w => w.length > 1);
+            const encodedQuery = encodeURIComponent(query);
+
+            document.getElementById('resultsStats').innerHTML = `
+                <span class="inline-flex items-center gap-2 text-gray-600">
+                    <span class="w-3.5 h-3.5 border-2 border-red-600 border-t-transparent rounded-full animate-spin"></span>
+                    Menelusuri sumber resmi di internet-positif.com...
+                </span>
+            `;
+
+            // 1. Hitung skor relevansi dari database kurasi lokal
+            let scoredLocal = TRUSTED_DATABASE.map(item => {
+                let score = 0;
+                const titleLower = item.title.toLowerCase();
+                const siteLower = item.siteName.toLowerCase();
+                const domainLower = item.domain.toLowerCase();
+                const snippetLower = item.snippet.toLowerCase();
+                const keywordsJoined = item.keywords.join(' ').toLowerCase();
+
+                if (titleLower.includes(qLower) || siteLower.includes(qLower) || domainLower.includes(qLower)) score += 60;
+                if (keywordsJoined.includes(qLower)) score += 45;
+
+                words.forEach(word => {
+                    if (titleLower.includes(word)) score += 25;
+                    if (siteLower.includes(word)) score += 20;
+                    if (domainLower.includes(word)) score += 20;
+                    if (keywordsJoined.includes(word)) score += 18;
+                    if (snippetLower.includes(word)) score += 10;
+                });
+
+                if (item.domain.endsWith('.go.id')) score += 5;
+
+                return { ...item, score };
+            }).filter(item => {
+                const catMatch = category === 'Semua' || item.category === category;
+                return catMatch && item.score > 0;
+            });
+
+            // 2. Ambil hasil real-time dari Wikipedia API
+            let liveWikiResults = [];
+            if (category === 'Semua' || category === 'Edukasi & Sains') {
+                liveWikiResults = await fetchLiveWikipediaResults(query);
+            }
+
+            // 3. Hasil pencarian multi-portal terpercaya dinamis
+            const multiPortalDynamic = [
+                {
+                    id: 'dyn-antara',
+                    title: `Berita Terkini "${escapeHtml(query)}" - Kantor Berita Nasional ANTARA`,
+                    url: `https://www.antaranews.com/search?q=${encodedQuery}`,
+                    displayUrl: `https://www.antaranews.com › pencarian › ${encodedQuery}`,
+                    siteName: 'ANTARA News (Resmi)',
+                    domain: 'antaranews.com',
+                    category: 'Berita Resmi',
+                    date: '2026-11-21',
+                    badgeColor: 'bg-red-50 text-red-700',
+                    iconText: 'AN',
+                    score: 82,
+                    snippet: `Liputan jurnalistik faktual dan berita terkini mengenai "${escapeHtml(query)}" langsung dari Kantor Berita Negara Republik Indonesia (LKBN ANTARA).`
+                },
+                {
+                    id: 'dyn-kompas',
+                    title: `Liputan & Analisis "${escapeHtml(query)}" - Kompas.com Terverifikasi Dewan Pers`,
+                    url: `https://search.kompas.com/search/?q=${encodedQuery}`,
+                    displayUrl: `https://www.kompas.com › tag › ${encodedQuery}`,
+                    siteName: 'Kompas.com',
+                    domain: 'kompas.com',
+                    category: 'Berita Resmi',
+                    date: '2026-11-21',
+                    badgeColor: 'bg-orange-50 text-orange-700',
+                    iconText: 'KM',
+                    score: 79,
+                    snippet: `Kumpulan artikel berita, liputan mendalam, dan verifikasi informasi seputar "${escapeHtml(query)}" oleh redaksi Kompas.com.`
+                },
+                {
+                    id: 'dyn-turnbackhoax',
+                    title: `Periksa Fakta & Klarifikasi Hoaks "${escapeHtml(query)}" - TurnBackHoax.ID`,
+                    url: `https://turnbackhoax.id/?s=${encodedQuery}`,
+                    displayUrl: `https://turnbackhoax.id › cek-fakta › ${encodedQuery}`,
+                    siteName: 'TurnBackHoax (MAFINDO)',
+                    domain: 'turnbackhoax.id',
+                    category: 'Cek Fakta',
+                    date: '2026-11-21',
+                    badgeColor: 'bg-amber-50 text-amber-700',
+                    iconText: 'TB',
+                    score: 76,
+                    snippet: `Pastikan kebenaran informasi seputar "${escapeHtml(query)}" melalui basis data pemeriksaan fakta independen terverifikasi IFCN.`
+                },
+                {
+                    id: 'dyn-kemkes',
+                    title: `Informasi Medis & Panduan Kesehatan "${escapeHtml(query)}" - Kemenkes & Alodokter`,
+                    url: `https://www.google.com/search?q=${encodedQuery}+site%3Akemkes.go.id+OR+site%3Aalodokter.com&safe=active`,
+                    displayUrl: `https://www.kemkes.go.id › edukasi-kesehatan › ${encodedQuery}`,
+                    siteName: 'Kemenkes RI & Direktori Medis',
+                    domain: 'kemkes.go.id',
+                    category: 'Kesehatan',
+                    date: '2026-11-20',
+                    badgeColor: 'bg-teal-50 text-teal-700',
+                    iconText: 'KK',
+                    score: 72,
+                    snippet: `Rujukan medis resmi dan panduan kesehatan berbasis bukti ilmiah terkait "${escapeHtml(query)}" dari Kementerian Kesehatan RI dan dokter terverifikasi.`
+                },
+                {
+                    id: 'dyn-brin',
+                    title: `Publikasi Ilmiah & Riset "${escapeHtml(query)}" - BRIN & Google Scholar`,
+                    url: `https://scholar.google.com/scholar?q=${encodedQuery}`,
+                    displayUrl: `https://scholar.google.com › scholar?q=${encodedQuery}`,
+                    siteName: 'Google Scholar & Riset Ilmiah',
+                    domain: 'scholar.google.com',
+                    category: 'Edukasi & Sains',
+                    date: '2026-11-19',
+                    badgeColor: 'bg-indigo-50 text-indigo-700',
+                    iconText: 'GS',
+                    score: 71,
+                    snippet: `Telusuri jurnal akademik, karya ilmiah, skripsi, dan publikasi penelitian peer-reviewed mengenai "${escapeHtml(query)}".`
+                }
+            ];
+
+            let combined = [...scoredLocal, ...liveWikiResults];
+
+            multiPortalDynamic.forEach(dynItem => {
+                if (category === 'Semua' || dynItem.category === category) {
+                    combined.push(dynItem);
+                }
+            });
+
+            // Fallback rekomendasi sumber resmi jika kata kunci sangat spesifik
+            if (combined.length < 5) {
+                const fallbackCategoryItems = TRUSTED_DATABASE
+                    .filter(item => category === 'Semua' || item.category === category)
+                    .map(item => ({ ...item, score: 30 }));
+                combined = [...combined, ...fallbackCategoryItems];
+            }
+
+            // Hilangkan duplikasi URL
+            const seenUrls = new Set();
+            combined = combined.filter(item => {
+                if (seenUrls.has(item.url)) return false;
+                seenUrls.add(item.url);
+                return true;
+            });
+
+            // Pengurutan
+            if (currentSort === 'terbaru') {
+                combined.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+            } else if (currentSort === 'resmi') {
+                combined.sort((a, b) => {
+                    const aGov = a.domain.endsWith('.go.id') ? 1 : 0;
+                    const bGov = b.domain.endsWith('.go.id') ? 1 : 0;
+                    if (bGov !== aGov) return bGov - aGov;
+                    return (b.score || 0) - (a.score || 0);
+                });
+            } else {
+                combined.sort((a, b) => (b.score || 0) - (a.score || 0));
+            }
+
+            cachedSearchResults = combined;
+            const elapsed = ((performance.now() - startTime) / 1000 + 0.08).toFixed(2);
+
+            document.getElementById('resultsStats').innerHTML = `
+                <span>Sekitar <strong>${combined.length}</strong> sumber terpercaya ditemukan (${elapsed} detik)</span>
+                <span class="text-emerald-700 font-medium">&bull; SafeSearch Aktif</span>
+            `;
+
+            const googleTrustedSearchUrl = `https://www.google.com/search?q=${encodedQuery}+site%3A.go.id+OR+site%3A.or.id+OR+site%3Aantaranews.com+OR+site%3Akompas.com&safe=active`;
+
+            renderGoogleFallbackCard(query, googleTrustedSearchUrl);
+            renderPaginatedPage();
+            renderKnowledgePanel(query, googleTrustedSearchUrl);
+        }
+
+        /**
+         * Menyoroti (highlight) kata kunci pada teks cuplikan hasil pencarian
+         */
+        function highlightKeywords(text, query) {
+            const words = (query || '').trim().split(/\s+/).filter(w => w.length > 2);
+            if (words.length === 0) return text;
+            let result = text;
+            words.forEach(word => {
+                const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const regex = new RegExp(`(${escapedWord})`, 'gi');
+                result = result.replace(regex, '<strong class="font-semibold text-gray-900">$1</strong>');
+            });
+            return result;
+        }
+
+        /**
+         * Merender kartu hasil pencarian berdasarkan halaman aktif
+         */
+        function renderPaginatedPage() {
+            const totalItems = cachedSearchResults.length;
+            const totalPages = Math.max(1, Math.ceil(totalItems / RESULTS_PER_PAGE));
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            const startIdx = (currentPage - 1) * RESULTS_PER_PAGE;
+            const pageItems = cachedSearchResults.slice(startIdx, startIdx + RESULTS_PER_PAGE);
+
+            const container = document.getElementById('resultsListContainer');
+            container.innerHTML = pageItems.map(item => `
+                <article class="group">
+                    <!-- Baris Atas: Favicon Inisial + Nama Situs + Badge Terverifikasi + Breadcrumb URL -->
+                    <div class="flex items-center gap-3 mb-1.5">
+                        <div class="w-7 h-7 rounded-full ${item.badgeColor} border border-gray-200 flex items-center justify-center text-[11px] font-bold shrink-0">
+                            ${item.iconText}
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                <span class="text-sm font-medium text-[#202124] truncate">${item.siteName}</span>
+                                <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+                                    <svg class="w-3 h-3 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                    Terverifikasi
+                                </span>
+                                <span class="text-[11px] text-gray-400 hidden sm:inline">&bull; ${item.category}</span>
+                            </div>
+                            <p class="text-xs text-[#206636] truncate">${item.displayUrl}</p>
+                        </div>
+                    </div>
+
+                    <!-- Judul Biru (Membuka Modal Pratinjau Aman + Tautan Langsung) -->
+                    <div class="flex items-start justify-between gap-2 mb-1">
+                        <h2>
+                            <button type="button" onclick="openSafePreviewModal('${item.id}')" class="text-left text-lg sm:text-[20px] font-medium text-[#1a0dab] hover:underline leading-snug">
+                                ${item.title}
+                            </button>
+                        </h2>
+                        <a href="${item.url}" target="_blank" rel="noopener noreferrer" title="Buka langsung situs asli" class="mt-1 p-1.5 text-gray-400 hover:text-gray-800 hover:bg-gray-100 rounded-lg shrink-0 transition">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+                    </div>
+
+                    <!-- Cuplikan Deskripsi dengan Highlight Kata Kunci -->
+                    <p class="text-sm text-[#4d5156] leading-relaxed">
+                        ${highlightKeywords(item.snippet, currentQuery)}
+                    </p>
+                </article>
+            `).join('');
+
+            // Render Kontrol Paginasi
+            const paginationBox = document.getElementById('paginationContainer');
+            if (totalPages <= 1) {
+                paginationBox.innerHTML = `<p class="text-xs text-gray-400">Menampilkan seluruh ${totalItems} sumber terverifikasi di internet-positif.com.</p>`;
+                return;
+            }
+
+            let buttonsHtml = '';
+            if (currentPage > 1) {
+                buttonsHtml += `<button type="button" onclick="goToPage(${currentPage - 1})" class="px-3.5 py-2 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl transition">&larr; Sebelumnya</button>`;
+            }
+
+            for (let p = 1; p <= totalPages; p++) {
+                if (p === currentPage) {
+                    buttonsHtml += `<button type="button" class="w-9 h-9 text-xs font-bold bg-red-600 text-white rounded-xl shadow-xs">${p}</button>`;
+                } else {
+                    buttonsHtml += `<button type="button" onclick="goToPage(${p})" class="w-9 h-9 text-xs font-medium text-gray-700 hover:bg-gray-100 rounded-xl transition">${p}</button>`;
+                }
+            }
+
+            if (currentPage < totalPages) {
+                buttonsHtml += `<button type="button" onclick="goToPage(${currentPage + 1})" class="px-3.5 py-2 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl transition">Berikutnya &rarr;</button>`;
+            }
+
+            paginationBox.innerHTML = buttonsHtml;
+        }
+
+        /**
+         * Merender Kartu "Telusuri Lebih Lanjut di Google (Khusus Situs Terpercaya)"
+         */
+        function renderGoogleFallbackCard(query, googleTrustedUrl) {
+            const card = document.getElementById('googleTrustedFallbackCard');
+            card.innerHTML = `
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold">G</span>
+                            <h3 class="text-sm font-bold text-gray-900">Telusuri Lebih Lanjut di Google (Khusus Situs Terpercaya)</h3>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Perluas pencarian <strong>"${escapeHtml(query)}"</strong> di Google Search dengan operator filter otomatis ke domain resmi (<code>.go.id</code>, <code>.or.id</code>, <code>antaranews.com</code>, <code>kompas.com</code>).
+                        </p>
+                    </div>
+                    <a href="${googleTrustedUrl}" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 bg-gray-900 hover:bg-black text-white text-xs font-semibold rounded-xl inline-flex items-center justify-center gap-1.5 shrink-0 transition">
+                        <span>Buka di Google</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </a>
+                </div>
+            `;
+        }
+
+        /**
+         * Merender Panel Pengetahuan & Verifikasi Sumber di Sisi Kanan
+         */
+        function renderKnowledgePanel(query, googleTrustedUrl) {
+            const panel = document.getElementById('knowledgePanel');
+            const qLower = query.toLowerCase();
+
+            const matchedTopic = KNOWLEDGE_TOPICS.find(topic =>
+                topic.triggers.some(trigger => qLower.includes(trigger))
+            );
+
+            if (matchedTopic) {
+                panel.innerHTML = `
+                    <div class="flex items-start justify-between gap-2 pb-3.5 mb-3.5 border-b border-gray-100">
+                        <div>
+                            <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md mb-1">Ringkasan Terverifikasi</span>
+                            <h3 class="font-bold text-gray-900 text-base leading-snug">${matchedTopic.title}</h3>
+                            <p class="text-xs text-gray-500">${matchedTopic.subtitle}</p>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-gray-700 leading-relaxed mb-4">
+                        ${matchedTopic.description}
+                    </p>
+
+                    <div class="space-y-2 text-xs mb-5 bg-gray-50 p-3.5 rounded-xl border border-gray-100">
+                        ${matchedTopic.facts.map(f => `
+                            <div class="flex flex-col">
+                                <span class="text-[11px] text-gray-400 font-medium">${f.label}</span>
+                                <span class="text-gray-800 font-semibold">${f.value}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="space-y-2">
+                        <a href="${matchedTopic.officialUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-2 transition">
+                            <span>Kunjungi Sumber Resmi</span>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+                        <button type="button" onclick="copyShareUrl(currentQuery)" class="w-full py-2.5 px-4 bg-gray-100 hover:bg-gray-200 text-gray-900 text-xs font-semibold rounded-xl flex items-center justify-center gap-2 transition">
+                            <span>Salin Tautan internet-positif.com</span>
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            panel.innerHTML = `
+                <div class="flex items-center gap-2.5 pb-3.5 mb-3.5 border-b border-gray-100">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-sm">Panel Verifikasi Informasi</h3>
+                        <p class="text-xs text-gray-500">Topik: "${escapeHtml(query)}"</p>
+                    </div>
+                </div>
+
+                <p class="text-xs text-gray-600 leading-relaxed mb-4">
+                    Hasil penelusuran di <strong>https://www.internet-positif.com</strong> untuk <strong>"${escapeHtml(query)}"</strong> menggabungkan ensiklopedia real-time dan indeks instansi resmi serta media terverifikasi Dewan Pers.
+                </p>
+
+                <div class="space-y-2.5 text-xs mb-5">
+                    <div class="flex items-start gap-2">
+                        <span class="text-emerald-600 font-bold mt-0.5">✓</span>
+                        <span class="text-gray-700"><strong>Domain Resmi:</strong> Memprioritaskan situs pemerintah (<code>.go.id</code>) &amp; pendidikan (<code>.ac.id</code>).</span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="text-emerald-600 font-bold mt-0.5">✓</span>
+                        <span class="text-gray-700"><strong>Media Terverifikasi:</strong> ANTARA, Kompas, Tempo, CNN Indonesia, Liputan6, Republika, CNBC, Tirto, Katadata.</span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="text-emerald-600 font-bold mt-0.5">✓</span>
+                        <span class="text-gray-700"><strong>Pratinjau Sumber Aman:</strong> Klik judul hasil untuk memeriksa URL tujuan sebelum membuka halaman eksternal.</span>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <a href="${googleTrustedUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 bg-gray-900 hover:bg-black text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-2 transition">
+                        <span>Buka di Google Search (Filter Resmi)</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </a>
+                    <button type="button" onclick="copyShareUrl(currentQuery)" class="w-full py-2.5 px-4 bg-gray-100 hover:bg-gray-200 text-gray-900 text-xs font-semibold rounded-xl flex items-center justify-center gap-2 transition">
+                        <span>Salin Tautan Hasil</span>
+                    </button>
+                </div>
+            `;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        /**
+         * Inisialisasi saat halaman dimuat (mendukung langsung parameter ?q=... pada URL)
+         */
+        window.addEventListener('DOMContentLoaded', () => {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const initialQuery = params.get('q');
+                if (initialQuery && initialQuery.trim()) {
+                    executeSearch(initialQuery.trim());
+                }
+            } catch (e) {
+                // Abaikan jika parameter URL tidak dapat dibaca
+            }
+        });
+    </script>
+</body>
+</html>
